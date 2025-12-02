@@ -11,8 +11,17 @@
   </header>
 
   <div class="divide-y divide-slate-100">
-    <app-todo-list-item />
-    <app-todo-list-item />
-    <app-todo-list-item />
+    @if (todos.length === 0) {
+      <div class="px-6 py-8 text-sm text-slate-500">Nothing here yet. Add your first todo.</div>
+    } @else {
+      @for (todo of todos; track todo.id) {
+        <app-todo-list-item
+          [todo]="todo"
+          (toggle)="toggleTodo.emit(todo)"
+          (edit)="editTodo.emit(todo)"
+          (delete)="deleteTodo.emit(todo.id)"
+        />
+      }
+    }
   </div>
 </section>
