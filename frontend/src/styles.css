@@ -1,3 +1,127 @@
-/* You can add global styles to this file, and also import other style files */
-
+/* Global Tailwind entry point */
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-primary: #02b8cb;
+    --brand-accent: #5d61ff;
+    --brand-warm: #ff7a59;
+    --brand-success: #4cd964;
+    --brand-slate-50: #f8fbff;
+    --brand-slate-900: #0f172a;
+    --brand-muted: #94a3b8;
+    --brand-glow: 0 15px 40px rgba(93, 97, 255, 0.25);
+  }
+
+  :root.dark {
+    --brand-primary: #0cd3e5;
+    --brand-accent: #8a8fff;
+    --brand-warm: #ff8f74;
+    --brand-success: #5fff9c;
+    --brand-slate-50: #0f172a;
+    --brand-slate-900: #f8fbff;
+    --brand-muted: #cbd5f5;
+    --brand-glow: 0 15px 40px rgba(2, 184, 203, 0.35);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', 'Nunito Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: radial-gradient(circle at top, rgba(93, 97, 255, 0.08), transparent 45%),
+      linear-gradient(120deg, #eef5ff, #fdfbff);
+    min-height: 100vh;
+    color: var(--brand-slate-900);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--brand-accent);
+    color: white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+    transform: scale(1);
+    box-shadow: var(--brand-glow);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 20px 45px rgba(2, 184, 203, 0.35);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: var(--brand-glow);
+  }
+}
+
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@layer utilities {
+  .animate-pop {
+    animation: fade-slide-up 0.5s ease both;
+  }
+
+  .animate-glow {
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+
+  .bg-brand-card {
+    background: var(--brand-slate-50);
+  }
+
+  .text-brand-muted {
+    color: var(--brand-muted);
+  }
+
+  .btn-brand {
+    @apply rounded-full px-5 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white transition-all duration-200;
+    background: linear-gradient(120deg, var(--brand-primary), var(--brand-accent));
+    box-shadow: var(--brand-glow);
+  }
+
+  .btn-brand:hover {
+    filter: brightness(1.05);
+  }
+
+  .card-elevated {
+    @apply rounded-3xl border border-white/80 shadow-2xl backdrop-blur;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+  }
+
+  .skeleton {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.6));
+    background-size: 200% 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+}
