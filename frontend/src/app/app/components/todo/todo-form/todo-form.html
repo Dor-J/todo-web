@@ -9,10 +9,12 @@
       type="text"
       formControlName="title"
       placeholder="What needs to get done?"
-      class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-slate-400 dark:focus:border-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700"
+      [class]="'w-full rounded-xl border px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 ' + (form.controls.title.invalid && form.controls.title.touched ? 'border-rose-500 dark:border-rose-400 bg-white dark:bg-slate-900 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-rose-200 dark:focus:ring-rose-900' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700')"
     />
-    @if (form.controls.title.invalid && form.controls.title.touched) {
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">Title is required</p>
+    @if (getErrorMessage(form.controls.title, 'Title')) {
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
+        {{ getErrorMessage(form.controls.title, 'Title') }}
+      </p>
     }
   </div>
 
@@ -22,8 +24,13 @@
       rows="3"
       formControlName="description"
       placeholder="Add more detail so future you knows what to do."
-      class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-slate-400 dark:focus:border-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700"
+      [class]="'w-full rounded-xl border px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 ' + (form.controls.description.invalid && form.controls.description.touched ? 'border-rose-500 dark:border-rose-400 bg-white dark:bg-slate-900 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-rose-200 dark:focus:ring-rose-900' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700')"
     ></textarea>
+    @if (getErrorMessage(form.controls.description, 'Description')) {
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
+        {{ getErrorMessage(form.controls.description, 'Description') }}
+      </p>
+    }
   </div>
 
   <div class="flex flex-wrap gap-3">
