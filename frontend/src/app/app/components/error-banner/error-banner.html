@@ -1,6 +1,17 @@
-<div
-  class="hidden rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 shadow-sm md:block"
->
-  <p class="text-sm font-semibold">Unable to load todos</p>
-  <p class="text-sm text-red-700">There appears be an error.</p>
-</div>
+@if (message) {
+  <div class="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 shadow-sm">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <p class="text-sm font-semibold">Unable to load todos</p>
+        <p class="text-sm text-red-700">{{ message }}</p>
+      </div>
+      <button
+        type="button"
+        class="text-xs uppercase tracking-[0.3em] text-red-500 transition hover:text-red-700"
+        (click)="dismiss.emit()"
+      >
+        Dismiss
+      </button>
+    </div>
+  </div>
+}
