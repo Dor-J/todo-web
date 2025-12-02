@@ -1,10 +1,10 @@
-<section class="space-y-4 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur">
+<section class="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 p-4 shadow-sm backdrop-blur">
   <header>
-    <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500">Filters</p>
-    <h2 class="text-lg font-semibold text-slate-900">Focus on what matters today</h2>
+    <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400">Filters</p>
+    <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Focus on what matters today</h2>
   </header>
 
-  <label class="flex flex-col gap-2 text-sm font-medium text-slate-600">
+  <label class="flex flex-col gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">
     Search
     <div class="relative">
       <input
@@ -12,9 +12,9 @@
         [value]="filters.query"
         (input)="updateQuery($any($event.target).value)"
         placeholder="Find a todo"
-        class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+        class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-slate-400 dark:focus:border-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700"
       />
-      <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs uppercase tracking-[0.3em] text-slate-400"
+      <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500"
         >⌘K</span
       >
     </div>
@@ -25,10 +25,13 @@
       type="button"
       class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="filters.status === 'all'"
+      [class.dark:bg-slate-700]="filters.status === 'all'"
       [class.text-white]="filters.status === 'all'"
       [class.border]="filters.status !== 'all'"
       [class.border-slate-200]="filters.status !== 'all'"
+      [class.dark:border-slate-700]="filters.status !== 'all'"
       [class.text-slate-500]="filters.status !== 'all'"
+      [class.dark:text-slate-400]="filters.status !== 'all'"
       (click)="setStatus('all')"
     >
       All
@@ -37,10 +40,13 @@
       type="button"
       class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="filters.status === 'active'"
+      [class.dark:bg-slate-700]="filters.status === 'active'"
       [class.text-white]="filters.status === 'active'"
       [class.border]="filters.status !== 'active'"
       [class.border-slate-200]="filters.status !== 'active'"
+      [class.dark:border-slate-700]="filters.status !== 'active'"
       [class.text-slate-500]="filters.status !== 'active'"
+      [class.dark:text-slate-400]="filters.status !== 'active'"
       (click)="setStatus('active')"
     >
       Active
@@ -49,10 +55,13 @@
       type="button"
       class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="filters.status === 'completed'"
+      [class.dark:bg-slate-700]="filters.status === 'completed'"
       [class.text-white]="filters.status === 'completed'"
       [class.border]="filters.status !== 'completed'"
       [class.border-slate-200]="filters.status !== 'completed'"
+      [class.dark:border-slate-700]="filters.status !== 'completed'"
       [class.text-slate-500]="filters.status !== 'completed'"
+      [class.dark:text-slate-400]="filters.status !== 'completed'"
       (click)="setStatus('completed')"
     >
       Completed

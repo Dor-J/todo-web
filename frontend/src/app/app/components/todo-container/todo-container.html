@@ -1,15 +1,15 @@
 <section class="space-y-6 animate-pop">
   <div
-    class="space-y-4 rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur"
+    class="space-y-4 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 shadow-lg shadow-slate-900/5 dark:shadow-slate-950/20 backdrop-blur"
   >
-    <div class="flex flex-col gap-4 lg:flex-row">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-stretch">
       <app-todo-filters
-        class="lg:w-2/5"
+        class="lg:w-2/5 lg:h-full"
         [filters]="filters()"
         (filtersChange)="handleFiltersChange($event)"
       />
       <app-todo-stats
-        class="lg:flex-1"
+        class="lg:flex-1 lg:h-full"
         [total]="stats().total"
         [completed]="stats().completed"
         [remaining]="stats().remaining"
