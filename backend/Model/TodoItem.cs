@@ -14,7 +14,7 @@ public class TodoItem
     public DateTime CreatedAt { get; set; }
 
     // Added for better tracking
-    public string? Description { get; set; } 
+    public string? Description { get; set; }
     public DateTime? UpdatedAt { get; set; }
-    public DateTime? CompleteddAt { get; set; }
+    public DateTime? CompletedAt { get; set; }
 }

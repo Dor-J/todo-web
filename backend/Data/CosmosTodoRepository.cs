@@ -59,7 +59,9 @@ public class CosmosTodoRepository : ITodoRepository
             Title = dto.Title,
             IsCompleted = dto.IsCompleted,
             CreatedAt = now,
-            UpdatedAt = now
+            UpdatedAt = now,
+            Description = dto.Description,
+            CompletedAt = dto.IsCompleted ? now : null
         };
 
         var response = await _container.CreateItemAsync(todo, new PartitionKey(todo.Id));
@@ -76,7 +78,11 @@ public class CosmosTodoRepository : ITodoRepository
 
         existing.Title = dto.Title;
         existing.IsCompleted = dto.IsCompleted;
+        existing.Description = dto.Description;
         existing.UpdatedAt = DateTime.UtcNow;
+        existing.CompletedAt = dto.IsCompleted
+            ? existing.CompletedAt ?? DateTime.UtcNow
+            : null;
 
         var response = await _container.ReplaceItemAsync(
             existing,
