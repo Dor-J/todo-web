@@ -1,23 +1,46 @@
 <article class="flex items-start gap-4 px-6 py-4 transition hover:bg-slate-50">
   <label class="inline-flex cursor-pointer items-center">
-    <input type="checkbox" class="h-5 w-5 rounded-full border-slate-300 text-slate-900 focus:ring-slate-400" />
+    <input
+      type="checkbox"
+      [checked]="todo.isCompleted"
+      (change)="toggle.emit()"
+      class="h-5 w-5 rounded-full border-slate-300 text-slate-900 focus:ring-slate-400"
+    />
   </label>
 
   <div class="flex-1 space-y-1">
     <div class="flex flex-wrap items-center gap-2">
-      <p class="text-base font-semibold text-slate-900">Ship tailwind-only UI scaffolding</p>
-      <span class="rounded-full bg-slate-900/5 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
-        Backend
+      <p class="text-base font-semibold text-slate-900" [class.line-through]="todo.isCompleted">
+        {{ todo.title }}
+      </p>
+      <span
+        class="rounded-full bg-slate-900/5 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2em] text-slate-500"
+      >
+        {{ todo.isCompleted ? 'Done' : 'In progress' }}
       </span>
     </div>
-    <p class="text-sm text-slate-500">
-      Replace component styles with Tailwind utilities so the future data work can focus purely on behavior.
+    @if (todo.description) {
+      <p class="text-sm text-slate-500">
+        {{ todo.description }}
+      </p>
+    }
+    <p class="text-xs text-slate-400">
+      Created {{ todo.createdAt | date: 'mediumDate' }}
+      @if (todo.updatedAt) {
+        • Updated {{ todo.updatedAt | date: 'short' }}
+      }
     </p>
-    <p class="text-xs text-slate-400">Created just now · Due tomorrow</p>
   </div>
 
   <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-    <button class="rounded-full border border-slate-200 px-3 py-1 text-slate-500 hover:text-slate-900">Edit</button>
-    <button class="rounded-full border border-slate-200 px-3 py-1 text-rose-500 hover:text-rose-600">Delete</button>
+    <button class="rounded-full border border-slate-200 px-3 py-1 text-slate-500 hover:text-slate-900" (click)="edit.emit()">
+      Edit
+    </button>
+    <button
+      class="rounded-full border border-slate-200 px-3 py-1 text-rose-500 hover:text-rose-600"
+      (click)="delete.emit()"
+    >
+      Delete
+    </button>
   </div>
 </article>
