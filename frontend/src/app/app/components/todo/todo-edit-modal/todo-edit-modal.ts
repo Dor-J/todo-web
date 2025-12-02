@@ -16,6 +16,8 @@ export interface TodoEditPayload {
   title: string;
   description?: string;
   isCompleted: boolean;
+  priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  starred: boolean;
 }
 
 @Component({
@@ -35,6 +37,8 @@ export class TodoEditModal implements OnChanges {
     title: ['', [Validators.required, Validators.maxLength(120), noWhitespaceValidator()]],
     description: ['', [Validators.maxLength(1000)]],
     isCompleted: [false],
+    priority: ['MEDIUM' as 'HIGH' | 'MEDIUM' | 'LOW'],
+    starred: [false],
   });
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -44,12 +48,16 @@ export class TodoEditModal implements OnChanges {
           title: this.todo.title,
           description: this.todo.description ?? '',
           isCompleted: this.todo.isCompleted,
+          priority: this.todo.priority,
+          starred: this.todo.starred,
         });
       } else {
         this.form.reset({
           title: '',
           description: '',
           isCompleted: false,
+          priority: 'MEDIUM',
+          starred: false,
         });
       }
     }

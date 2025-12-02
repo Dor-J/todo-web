@@ -13,4 +13,5 @@ export class TodoListItem {
   @Output() toggle = new EventEmitter<void>();
   @Output() edit = new EventEmitter<void>();
   @Output() delete = new EventEmitter<void>();
+  @Output() toggleStarred = new EventEmitter<void>();
 }

@@ -12,7 +12,7 @@ import { TodoFormService } from '../../../../services/todo-form.service';
   templateUrl: './todo-form.html',
 })
 export class TodoForm implements OnInit, OnDestroy {
-  @Output() save = new EventEmitter<{ title: string; description?: string; isCompleted?: boolean }>();
+  @Output() save = new EventEmitter<{ title: string; description?: string; isCompleted?: boolean; priority?: 'HIGH' | 'MEDIUM' | 'LOW'; starred?: boolean }>();
   @ViewChild('titleInput', { static: false }) titleInputRef?: ElementRef<HTMLInputElement>;
 
   private readonly fb = inject(FormBuilder);
@@ -23,6 +23,8 @@ export class TodoForm implements OnInit, OnDestroy {
     title: ['', [Validators.required, Validators.maxLength(120), noWhitespaceValidator()]],
     description: ['', [Validators.maxLength(1000)]],
     isCompleted: [false],
+    priority: ['MEDIUM' as 'HIGH' | 'MEDIUM' | 'LOW'],
+    starred: [false],
   });
 
   ngOnInit(): void {
@@ -59,6 +61,6 @@ export class TodoForm implements OnInit, OnDestroy {
       return;
     }
     this.save.emit(this.form.getRawValue());
-    this.form.reset({ title: '', description: '', isCompleted: false });
+    this.form.reset({ title: '', description: '', isCompleted: false, priority: 'MEDIUM', starred: false });
   }
 }

@@ -40,7 +40,7 @@ export class TodoContainer implements OnInit {
     this.store.loadTodos();
   }
 
-  handleCreate(payload: { title: string; description?: string; isCompleted?: boolean }): void {
+  handleCreate(payload: { title: string; description?: string; isCompleted?: boolean; priority?: 'HIGH' | 'MEDIUM' | 'LOW'; starred?: boolean }): void {
     this.store.createTodo(payload);
   }
 
@@ -62,6 +62,8 @@ export class TodoContainer implements OnInit {
       title: payload.title,
       description: payload.description?.trim() ? payload.description.trim() : undefined,
       isCompleted: payload.isCompleted,
+      priority: payload.priority,
+      starred: payload.starred,
     };
     this.store.updateTodo(updated);
     this.editingTodo.set(null);
@@ -85,5 +87,13 @@ export class TodoContainer implements OnInit {
 
   dismissError(): void {
     this.store.clearError();
+  }
+
+  handleToggleStarred(todo: Todo): void {
+    const updated: Todo = {
+      ...todo,
+      starred: !(todo.starred ?? false),
+    };
+    this.store.updateTodo(updated);
   }
 }

@@ -14,4 +14,5 @@ export class TodoList {
   @Output() toggleTodo = new EventEmitter<Todo>();
   @Output() editTodo = new EventEmitter<Todo>();
   @Output() deleteTodo = new EventEmitter<string>();
+  @Output() toggleStarred = new EventEmitter<Todo>();
 }

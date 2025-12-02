@@ -32,7 +32,16 @@ public class CosmosTodoRepository : ITodoRepository
         while (query.HasMoreResults)
         {
             var response = await query.ReadNextAsync();
-            results.AddRange(response);
+            foreach (var todo in response)
+            {
+                // Normalize todos that might be missing priority/starred fields
+                if (todo.Priority == default(Priority))
+                {
+                    todo.Priority = Priority.Medium;
+                }
+                // Starred defaults to false which is correct, but ensure it's explicitly set
+                results.Add(todo);
+            }
         }
 
         return results;
@@ -47,7 +56,14 @@ public class CosmosTodoRepository : ITodoRepository
                 new PartitionKey(id)
             );
 
-            return response.Resource;
+            var todo = response.Resource;
+            // Normalize todo that might be missing priority/starred fields
+            if (todo.Priority == default(Priority))
+            {
+                todo.Priority = Priority.Medium;
+            }
+            
+            return todo;
         }
         catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
@@ -67,7 +83,9 @@ public class CosmosTodoRepository : ITodoRepository
             CreatedAt = now,
             UpdatedAt = now,
             Description = _sanitizer.Sanitize(dto.Description),
-            CompletedAt = dto.IsCompleted ? now : null
+            CompletedAt = dto.IsCompleted ? now : null,
+            Priority = dto.Priority ?? Priority.Medium,
+            Starred = dto.Starred
         };
 
         var response = await _container.CreateItemAsync(todo, new PartitionKey(todo.Id));
@@ -89,6 +107,11 @@ public class CosmosTodoRepository : ITodoRepository
         existing.CompletedAt = dto.IsCompleted
             ? existing.CompletedAt ?? DateTime.UtcNow
             : null;
+        if (dto.Priority.HasValue)
+        {
+            existing.Priority = dto.Priority.Value;
+        }
+        existing.Starred = dto.Starred;
 
         var response = await _container.ReplaceItemAsync(
             existing,

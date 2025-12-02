@@ -34,6 +34,18 @@
     }
   </div>
 
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium text-slate-600 dark:text-slate-300">Priority</label>
+    <select
+      formControlName="priority"
+      [class]="'w-full rounded-xl border px-4 py-2.5 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700'"
+    >
+      <option value="LOW">Low</option>
+      <option value="MEDIUM">Medium</option>
+      <option value="HIGH">High</option>
+    </select>
+  </div>
+
   <div class="flex flex-wrap gap-3">
     <label class="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
       <input
@@ -42,6 +54,15 @@
         class="h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 focus:ring-slate-400 dark:focus:ring-slate-600"
       />
       Mark as completed
+    </label>
+
+    <label class="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+      <input
+        type="checkbox"
+        formControlName="starred"
+        class="h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 focus:ring-slate-400 dark:focus:ring-slate-600"
+      />
+      Starred
     </label>
 
     <span class="text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Due today</span>
@@ -57,7 +78,7 @@
     <button
       type="reset"
       class="rounded-full border border-slate-200 dark:border-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400 transition hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
-      (click)="form.reset({ title: '', description: '', isCompleted: false })"
+      (click)="form.reset({ title: '', description: '', isCompleted: false, priority: 'MEDIUM', starred: false })"
     >
       Clear
     </button>
