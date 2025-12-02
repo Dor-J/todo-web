@@ -1,1 +1,13 @@
-<p>confirm-dialog works!</p>
+<div class="pointer-events-none fixed inset-0 z-40 flex items-center justify-center">
+  <div class="hidden h-full w-full bg-slate-900/50 backdrop-blur-sm md:block" aria-hidden="true"></div>
+  <div class="hidden w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl shadow-slate-900/30 md:block">
+    <h2 class="text-xl font-semibold text-slate-900">Ready to delete this todo?</h2>
+    <p class="mt-2 text-sm text-slate-500">
+      Hook this dialog up to the TodoContainer events when you wire up real interactivity.
+    </p>
+    <div class="mt-6 flex justify-end gap-3 text-xs font-semibold uppercase tracking-[0.3em]">
+      <button class="rounded-full border border-slate-200 px-4 py-2 text-slate-500">Cancel</button>
+      <button class="rounded-full bg-rose-600 px-4 py-2 text-white">Delete</button>
+    </div>
+  </div>
+</div>
