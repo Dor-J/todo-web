@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { TodoListItem } from '../todo-list-item/todo-list-item';
 
 @Component({
   selector: 'app-todo-list',
-  imports: [],
+  standalone: true,
+  imports: [TodoListItem],
   templateUrl: './todo-list.html',
-  styleUrl: './todo-list.css',
 })
-export class TodoList {
-
-}
+export class TodoList {}
