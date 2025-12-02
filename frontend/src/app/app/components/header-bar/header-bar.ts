@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { ThemeService } from '../../../services/theme.service';
 import { TodoStore } from '../../../todo.store';
 import { TodoFormService } from '../../../services/todo-form.service';
+import { HealthIndicator } from '../health-indicator/health-indicator';
 
 @Component({
   selector: 'app-header-bar',
   standalone: true,
-  imports: [],
+  imports: [HealthIndicator],
   templateUrl: './header-bar.html',
 })
 export class HeaderBar {
