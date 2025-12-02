@@ -1,5 +1,7 @@
 <section class="space-y-6 animate-pop">
-  <div class="space-y-4 rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur">
+  <div
+    class="space-y-4 rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur"
+  >
     <div class="flex flex-col gap-4 lg:flex-row">
       <app-todo-filters
         class="lg:w-2/5"
@@ -18,7 +20,7 @@
   </div>
 
   @if (error()) {
-    <app-error-banner [message]="error()" (dismiss)="dismissError()" />
+  <app-error-banner [message]="error()" (dismiss)="dismissError()" />
   }
 
   <div class="relative">
@@ -31,9 +33,5 @@
     />
   </div>
 
-  <app-todo-edit-modal
-    [todo]="editingTodo()"
-    (dismiss)="dismissEdit()"
-    (save)="saveEdit($event)"
-  />
+  <app-todo-edit-modal [todo]="editingTodo()" (dismiss)="dismissEdit()" (save)="saveEdit($event)" />
 </section>
