@@ -129,6 +129,8 @@ export class TodoStore {
       isCompleted: updated.isCompleted,
       completedAt: updated.completedAt,
       updatedAt: updated.updatedAt,
+      priority: updated.priority,
+      starred: updated.starred,
     };
     this.service.updateTodo(id, dto).subscribe({
       next: (serverTodo) => {
