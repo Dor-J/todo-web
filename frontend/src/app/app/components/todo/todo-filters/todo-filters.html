@@ -1,1 +1,39 @@
-<p>todo-filters works!</p>
+<section class="space-y-4 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur">
+  <header>
+    <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500">Filters</p>
+    <h2 class="text-lg font-semibold text-slate-900">Focus on what matters today</h2>
+  </header>
+
+  <label class="flex flex-col gap-2 text-sm font-medium text-slate-600">
+    Search
+    <div class="relative">
+      <input
+        type="search"
+        placeholder="Find a todo"
+        class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+      />
+      <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs uppercase tracking-[0.3em] text-slate-400"
+        >⌘K</span
+      >
+    </div>
+  </label>
+
+  <div class="flex flex-wrap gap-2">
+    <button class="rounded-full bg-slate-900 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-white">
+      All
+    </button>
+    <button class="rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+      Active
+    </button>
+    <button class="rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+      Completed
+    </button>
+  </div>
+
+  <div class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm">
+    <span class="font-medium text-slate-600">Group by</span>
+    <button class="rounded-full bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 shadow">
+      Creation date
+    </button>
+  </div>
+</section>
