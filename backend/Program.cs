@@ -8,6 +8,8 @@ using backend.Services;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
 using Serilog;
+using Microsoft.AspNetCore.CookiePolicy; 
+using Microsoft.AspNetCore.Http; 
 
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
@@ -97,13 +99,58 @@ try
 
         if (allowedOrigins is { Length: > 0 })
         {
-          policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
+          // In production, ensure all origins use HTTPS
+          if (builder.Environment.IsProduction())
+          {
+            var httpsOrigins = allowedOrigins
+              .Where(origin => origin.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+              .ToArray();
+            
+            if (httpsOrigins.Length > 0)
+            {
+              policy.WithOrigins(httpsOrigins)
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+            }
+            else
+            {
+              // Log warning using Serilog's static logger
+              Log.Warning(
+                "No HTTPS origins configured for CORS in production. This is a security risk.");
+            }
+          }
+          else
+          {
+            policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+          }
         }
         else
         {
-          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+          // Only allow any origin in development
+          if (builder.Environment.IsDevelopment())
+          {
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+          }
+          else
+          {
+            // Log error using Serilog's static logger
+            Log.Error(
+              "CORS origins must be configured in production. Falling back to no CORS.");
+          }
         }
       });
+  });
+
+  // Cookie configuration for secure cookies
+  builder.Services.Configure<CookiePolicyOptions>(options =>
+  {
+    options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
+    options.Secure = builder.Environment.IsProduction()
+      ? CookieSecurePolicy.Always
+      : CookieSecurePolicy.SameAsRequest;
   });
 
   var app = builder.Build();
@@ -129,6 +176,9 @@ try
     }
   }
 
+  // Cookie policy middleware (should be early in pipeline)
+  app.UseCookiePolicy();
+
   // Security middleware (should be early in pipeline)
   app.UseMiddleware<SecurityHeadersMiddleware>();
   app.UseMiddleware<RequestLoggingMiddleware>();
@@ -144,6 +194,26 @@ try
   }
 
   app.UseHttpsRedirection();
+
+  // Enforce HTTPS in production
+  if (!app.Environment.IsDevelopment())
+  {
+    app.Use(async (context, next) =>
+    {
+      if (!context.Request.IsHttps)
+      {
+        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+        logger.LogWarning(
+          "Blocked non-HTTPS request to {Path} from {RemoteIp}",
+          context.Request.Path,
+          context.Connection.RemoteIpAddress);
+        context.Response.StatusCode = 403;
+        await context.Response.WriteAsync("HTTPS required");
+        return;
+      }
+      await next();
+    });
+  }
 
   app.UseCors(FrontendCorsPolicy);
 
