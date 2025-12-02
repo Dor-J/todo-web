@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 
 namespace backend.Models;
 
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[System.Text.Json.Serialization.JsonConverter(typeof(JsonStringEnumConverter))]
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
 public enum Priority
 {
