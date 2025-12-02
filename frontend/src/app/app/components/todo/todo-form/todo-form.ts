@@ -47,7 +47,9 @@ export class TodoForm implements OnInit, OnDestroy {
    */
   focusInput(): void {
     if (this.titleInputRef?.nativeElement) {
-      this.titleInputRef.nativeElement.focus();
+      setTimeout(() => {
+        this.titleInputRef?.nativeElement?.focus();
+      }, 0);
     }
   }
 
