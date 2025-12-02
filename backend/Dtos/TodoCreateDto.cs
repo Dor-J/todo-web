@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using backend.Models;
 
 namespace backend.Dtos;
 
@@ -12,4 +13,7 @@ public class TodoCreateDto
 
     [StringLength(1000)]
     public string? Description { get; set; }
+
+    public Priority? Priority { get; set; }
+    public bool Starred { get; set; } = false;
 }
