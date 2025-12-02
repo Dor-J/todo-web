@@ -115,9 +115,8 @@ try
             }
             else
             {
-              var logger = builder.Services.BuildServiceProvider()
-                .GetRequiredService<ILogger<Program>>();
-              logger.LogWarning(
+              // Log warning using Serilog's static logger
+              Log.Warning(
                 "No HTTPS origins configured for CORS in production. This is a security risk.");
             }
           }
@@ -137,9 +136,8 @@ try
           }
           else
           {
-            var logger = builder.Services.BuildServiceProvider()
-              .GetRequiredService<ILogger<Program>>();
-            logger.LogError(
+            // Log error using Serilog's static logger
+            Log.Error(
               "CORS origins must be configured in production. Falling back to no CORS.");
           }
         }
@@ -153,7 +151,6 @@ try
     options.Secure = builder.Environment.IsProduction()
       ? CookieSecurePolicy.Always
       : CookieSecurePolicy.SameAsRequest;
-    options.SameSite = SameSiteMode.Strict;
   });
 
   var app = builder.Build();
