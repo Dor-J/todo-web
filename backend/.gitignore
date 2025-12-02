@@ -1,0 +1,92 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+TestResults/
+*.Cache/
+*.cache/
+*.obj
+*.pdb
+*.exe
+*.dll
+
+## Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+## Rider / IntelliJ
+.idea/
+*.sln.iml
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+*.nuget.props
+*.nuget.targets
+# If you use global package cache only:
+# /packages/
+
+## .NET Core
+project.lock.json
+project.fragment.lock.json
+*.deps.json
+*.runtimeconfig.dev.json
+
+## Logs & diagnostics
+*.log
+*.trace
+*.dmp
+
+## Coverage
+*.coverage
+*.coveragexml
+coverage*/
+.coverage/*
+.coverage/
+
+## Entity Framework Migrations (generated binaries)
+[Mm]igrations/**/obj/
+[Mm]igrations/**/bin/
+
+## Publish / deploy output
+publish/
+*.pubxml
+*.pubxml.user
+
+## Configs you usually don’t commit
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.Local.json
+
+## User-specific
+*.userprefs
+*.orig
+
+## OS junk
+# Windows
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+## Node / front-end (if you have SPA in the solution)
+node_modules/
+dist/
+build/
+npm-debug.log*
+yarn-debug.log*
+bun-debug.log*
+yarn-error.log*
+.pnpm-store/

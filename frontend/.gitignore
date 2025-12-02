@@ -1,17 +1,39 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
-# Compiled output
+# ----------------------------------
+# Build / Compiled output
+# ----------------------------------
 /dist
 /tmp
 /out-tsc
 /bazel-out
+/.angular/cache
 
-# Node
+# ts incremental build info
+*.tsbuildinfo
+
+# ----------------------------------
+# Node & Package managers
+# ----------------------------------
 /node_modules
-npm-debug.log
-yarn-error.log
 
+# NPM / Yarn / PNPM debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# PNPM store
+.pnpm-store/
+
+# Yarn 2+/Berry
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# ----------------------------------
 # IDEs and editors
+# ----------------------------------
 .idea/
 .project
 .classpath
@@ -20,24 +42,75 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 
-# Visual Studio Code
+# VS Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
+# VS Code local history
+.history/
+
+# Workspace configs
+*.code-workspace
+
+# (Optional) Visual Studio (if someone opens the Angular folder in VS)
+.vs/
+
+# ----------------------------------
+# Linting / Tooling caches
+# ----------------------------------
+.eslintcache
+.stylelintcache
+/.cache
+/.turbo
+/.nx
+
+# ----------------------------------
+# Tests / Coverage / Screenshots
+# ----------------------------------
 /coverage
+/.nyc_output
 /libpeerconnection.log
 testem.log
-/typings
-__screenshots__/
+/__screenshots__/
 
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+/cypress/downloads/
+
+# Playwright
+/playwright-report/
+/test-results/
+/playwright/.cache
+
+# Jest
+/jest-html-reporters-*
+/jest-coverage/
+
+# ----------------------------------
+# Types & legacy tooling
+# ----------------------------------
+/typings
+/sass-cache/
+.sass-cache/
+/connect.lock
+
+# ----------------------------------
+# Environment & secrets
+# (only ignore if you don't want env files in git)
+# ----------------------------------
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# ----------------------------------
 # System files
+# ----------------------------------
 .DS_Store
 Thumbs.db
