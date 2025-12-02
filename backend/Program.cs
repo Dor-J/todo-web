@@ -115,7 +115,18 @@ try
     var cosmosOptions = services.GetRequiredService<IOptions<CosmosOptions>>().Value;
     var client = services.GetRequiredService<CosmosClient>();
 
-    await CosmosInitializer.EnsureCreatedAsync(client, cosmosOptions);
+    try
+    {
+      Log.Information("Initializing Cosmos DB...");
+      using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+      await CosmosInitializer.EnsureCreatedAsync(client, cosmosOptions);
+      Log.Information("Cosmos DB initialized successfully");
+    }
+    catch (Exception ex)
+    {
+      Log.Fatal(ex, "Failed to initialize Cosmos DB. Check your connection string in appsettings.Development.json");
+      throw;
+    }
   }
 
   // Security middleware (should be early in pipeline)
@@ -332,6 +343,8 @@ try
     });
   });
 
+  Log.Information("Application configured. Starting server...");
+  Log.Information("Swagger UI available at: http://localhost:5013/swagger");
   await app.RunAsync();
 }
 catch (Exception ex)
