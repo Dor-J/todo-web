@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoadingOverlay } from '../loading-overlay/loading-overlay';
 import { ErrorBanner } from '../error-banner/error-banner';
@@ -9,11 +9,21 @@ import { TodoList } from '../todo/todo-list/todo-list';
 import { TodoStore } from '../../../todo.store';
 import type { Todo } from '../../../todo';
 import type { TodoFiltersState } from '../../../models/filters';
+import { TodoEditModal, type TodoEditPayload } from '../todo/todo-edit-modal/todo-edit-modal';
 
 @Component({
   selector: 'app-todo-container',
   standalone: true,
-  imports: [CommonModule, LoadingOverlay, ErrorBanner, TodoFilters, TodoStats, TodoForm, TodoList],
+  imports: [
+    CommonModule,
+    LoadingOverlay,
+    ErrorBanner,
+    TodoFilters,
+    TodoStats,
+    TodoForm,
+    TodoList,
+    TodoEditModal,
+  ],
   templateUrl: './todo-container.html',
 })
 export class TodoContainer implements OnInit {
@@ -24,6 +34,7 @@ export class TodoContainer implements OnInit {
   readonly error = this.store.error;
   readonly toast = this.store.toast;
   readonly filters = this.store.filters;
+  readonly editingTodo = signal<Todo | null>(null);
 
   ngOnInit(): void {
     this.store.loadTodos();
@@ -38,7 +49,26 @@ export class TodoContainer implements OnInit {
   }
 
   handleEdit(todo: Todo): void {
-    this.store.updateTodo(todo);
+    this.editingTodo.set(todo);
+  }
+
+  saveEdit(payload: TodoEditPayload): void {
+    const active = this.editingTodo();
+    if (!active) {
+      return;
+    }
+    const updated: Todo = {
+      ...active,
+      title: payload.title,
+      description: payload.description?.trim() ? payload.description.trim() : undefined,
+      isCompleted: payload.isCompleted,
+    };
+    this.store.updateTodo(updated);
+    this.editingTodo.set(null);
+  }
+
+  dismissEdit(): void {
+    this.editingTodo.set(null);
   }
 
   handleDelete(id: string): void {
