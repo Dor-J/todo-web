@@ -67,4 +67,115 @@
       Completed
     </button>
   </div>
+
+  <div class="flex flex-wrap gap-2">
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="(filters.isStarred ?? 'all') === 'all'"
+      [class.dark:bg-slate-700]="(filters.isStarred ?? 'all') === 'all'"
+      [class.text-white]="(filters.isStarred ?? 'all') === 'all'"
+      [class.border]="(filters.isStarred ?? 'all') !== 'all'"
+      [class.border-slate-200]="(filters.isStarred ?? 'all') !== 'all'"
+      [class.dark:border-slate-700]="(filters.isStarred ?? 'all') !== 'all'"
+      [class.text-slate-500]="(filters.isStarred ?? 'all') !== 'all'"
+      [class.dark:text-slate-400]="(filters.isStarred ?? 'all') !== 'all'"
+      (click)="setStarred('all')"
+    >
+      All
+    </button>
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="(filters.isStarred ?? 'all') === 'starred'"
+      [class.dark:bg-slate-700]="(filters.isStarred ?? 'all') === 'starred'"
+      [class.text-white]="(filters.isStarred ?? 'all') === 'starred'"
+      [class.border]="(filters.isStarred ?? 'all') !== 'starred'"
+      [class.border-slate-200]="(filters.isStarred ?? 'all') !== 'starred'"
+      [class.dark:border-slate-700]="(filters.isStarred ?? 'all') !== 'starred'"
+      [class.text-slate-500]="(filters.isStarred ?? 'all') !== 'starred'"
+      [class.dark:text-slate-400]="(filters.isStarred ?? 'all') !== 'starred'"
+      (click)="setStarred('starred')"
+    >
+      Starred
+    </button>
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="(filters.isStarred ?? 'all') === 'not-starred'"
+      [class.dark:bg-slate-700]="(filters.isStarred ?? 'all') === 'not-starred'"
+      [class.text-white]="(filters.isStarred ?? 'all') === 'not-starred'"
+      [class.border]="(filters.isStarred ?? 'all') !== 'not-starred'"
+      [class.border-slate-200]="(filters.isStarred ?? 'all') !== 'not-starred'"
+      [class.dark:border-slate-700]="(filters.isStarred ?? 'all') !== 'not-starred'"
+      [class.text-slate-500]="(filters.isStarred ?? 'all') !== 'not-starred'"
+      [class.dark:text-slate-400]="(filters.isStarred ?? 'all') !== 'not-starred'"
+      (click)="setStarred('not-starred')"
+    >
+      Not Starred
+    </button>
+  </div>
+
+  <div class="flex flex-wrap gap-2">
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="(filters.priority ?? 'all') === 'all'"
+      [class.dark:bg-slate-700]="(filters.priority ?? 'all') === 'all'"
+      [class.text-white]="(filters.priority ?? 'all') === 'all'"
+      [class.border]="(filters.priority ?? 'all') !== 'all'"
+      [class.border-slate-200]="(filters.priority ?? 'all') !== 'all'"
+      [class.dark:border-slate-700]="(filters.priority ?? 'all') !== 'all'"
+      [class.text-slate-500]="(filters.priority ?? 'all') !== 'all'"
+      [class.dark:text-slate-400]="(filters.priority ?? 'all') !== 'all'"
+      (click)="setPriority('all')"
+    >
+      All
+    </button>
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="(filters.priority ?? 'all') === 'HIGH'"
+      [class.dark:bg-slate-700]="(filters.priority ?? 'all') === 'HIGH'"
+      [class.text-white]="(filters.priority ?? 'all') === 'HIGH'"
+      [class.border]="(filters.priority ?? 'all') !== 'HIGH'"
+      [class.border-slate-200]="(filters.priority ?? 'all') !== 'HIGH'"
+      [class.dark:border-slate-700]="(filters.priority ?? 'all') !== 'HIGH'"
+      [class.text-slate-500]="(filters.priority ?? 'all') !== 'HIGH'"
+      [class.dark:text-slate-400]="(filters.priority ?? 'all') !== 'HIGH'"
+      (click)="setPriority('HIGH')"
+    >
+      High
+    </button>
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="(filters.priority ?? 'all') === 'MEDIUM'"
+      [class.dark:bg-slate-700]="(filters.priority ?? 'all') === 'MEDIUM'"
+      [class.text-white]="(filters.priority ?? 'all') === 'MEDIUM'"
+      [class.border]="(filters.priority ?? 'all') !== 'MEDIUM'"
+      [class.border-slate-200]="(filters.priority ?? 'all') !== 'MEDIUM'"
+      [class.dark:border-slate-700]="(filters.priority ?? 'all') !== 'MEDIUM'"
+      [class.text-slate-500]="(filters.priority ?? 'all') !== 'MEDIUM'"
+      [class.dark:text-slate-400]="(filters.priority ?? 'all') !== 'MEDIUM'"
+      (click)="setPriority('MEDIUM')"
+    >
+      Medium
+    </button>
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="(filters.priority ?? 'all') === 'LOW'"
+      [class.dark:bg-slate-700]="(filters.priority ?? 'all') === 'LOW'"
+      [class.text-white]="(filters.priority ?? 'all') === 'LOW'"
+      [class.border]="(filters.priority ?? 'all') !== 'LOW'"
+      [class.border-slate-200]="(filters.priority ?? 'all') !== 'LOW'"
+      [class.dark:border-slate-700]="(filters.priority ?? 'all') !== 'LOW'"
+      [class.text-slate-500]="(filters.priority ?? 'all') !== 'LOW'"
+      [class.dark:text-slate-400]="(filters.priority ?? 'all') !== 'LOW'"
+      (click)="setPriority('LOW')"
+    >
+      Low
+    </button>
+  </div>
 </section>
