@@ -1,6 +1,8 @@
+using System.ComponentModel.DataAnnotations;
 using backend.Data;
 using backend.Dtos;
 using backend.Models;
+using backend.Services;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
 
@@ -16,6 +18,9 @@ builder.Services.AddSingleton<CosmosClient>(sp =>
     var options = sp.GetRequiredService<IOptions<CosmosOptions>>().Value;
     return new CosmosClient(options.ConnectionString);
 });
+
+// Sanitization service
+builder.Services.AddSingleton<IHtmlSanitizerService, HtmlSanitizerService>();
 
 // Repository
 builder.Services.AddSingleton<ITodoRepository, CosmosTodoRepository>();
@@ -89,6 +94,11 @@ app.MapGet("/todos", async (ITodoRepository repo) =>
 // 2. GET /todos/{id}
 app.MapGet("/todos/{id}", async (string id, ITodoRepository repo) =>
 {
+    if (!Guid.TryParse(id, out _))
+    {
+        return Results.BadRequest(new { error = "Invalid ID format. ID must be a valid GUID." });
+    }
+
     var todo = await repo.GetByIdAsync(id);
     return todo is null ? Results.NotFound() : Results.Ok(todo);
 });
@@ -96,6 +106,20 @@ app.MapGet("/todos/{id}", async (string id, ITodoRepository repo) =>
 // 3. POST /todos
 app.MapPost("/todos", async (TodoCreateDto dto, ITodoRepository repo) =>
 {
+    var validationResults = new List<ValidationResult>();
+    var validationContext = new ValidationContext(dto);
+    
+    if (!Validator.TryValidateObject(dto, validationContext, validationResults, true))
+    {
+        var errors = validationResults.Select(vr => new
+        {
+            field = vr.MemberNames.FirstOrDefault(),
+            message = vr.ErrorMessage
+        }).ToList();
+        
+        return Results.BadRequest(new { errors });
+    }
+
     var created = await repo.CreateAsync(dto);
     return Results.Created($"/todos/{created.Id}", created);
 });
@@ -103,6 +127,25 @@ app.MapPost("/todos", async (TodoCreateDto dto, ITodoRepository repo) =>
 // 4. PUT /todos/{id}
 app.MapPut("/todos/{id}", async (string id, TodoUpdateDto dto, ITodoRepository repo) =>
 {
+    if (!Guid.TryParse(id, out _))
+    {
+        return Results.BadRequest(new { error = "Invalid ID format. ID must be a valid GUID." });
+    }
+
+    var validationResults = new List<ValidationResult>();
+    var validationContext = new ValidationContext(dto);
+    
+    if (!Validator.TryValidateObject(dto, validationContext, validationResults, true))
+    {
+        var errors = validationResults.Select(vr => new
+        {
+            field = vr.MemberNames.FirstOrDefault(),
+            message = vr.ErrorMessage
+        }).ToList();
+        
+        return Results.BadRequest(new { errors });
+    }
+
     var updated = await repo.UpdateAsync(id, dto);
     return updated is null ? Results.NotFound() : Results.Ok(updated);
 });
@@ -110,6 +153,11 @@ app.MapPut("/todos/{id}", async (string id, TodoUpdateDto dto, ITodoRepository r
 // 5. DELETE /todos/{id}
 app.MapDelete("/todos/{id}", async (string id, ITodoRepository repo) =>
 {
+    if (!Guid.TryParse(id, out _))
+    {
+        return Results.BadRequest(new { error = "Invalid ID format. ID must be a valid GUID." });
+    }
+
     var deleted = await repo.DeleteAsync(id);
     return deleted ? Results.NoContent() : Results.NotFound();
 });
