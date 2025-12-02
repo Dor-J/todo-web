@@ -1,1 +1,17 @@
-<p>todo-container works!</p>
+<section class="space-y-6">
+  <div class="space-y-4 rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur">
+    <div class="flex flex-col gap-4 lg:flex-row">
+      <app-todo-filters class="lg:w-2/5" />
+      <app-todo-stats class="lg:flex-1" />
+    </div>
+
+    <app-todo-form />
+  </div>
+
+  <app-error-banner />
+
+  <div class="relative">
+    <app-loading-overlay />
+    <app-todo-list />
+  </div>
+</section>
