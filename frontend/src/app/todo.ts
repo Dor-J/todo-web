@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ConfigService } from 'ngx-dotenv';
 import type { Todo } from './models/todo';
 export type { Todo } from './models/todo';
 
@@ -25,10 +24,15 @@ export interface UpdateTodoDto {
 export class TodoService {
   private readonly apiUrl: string;
 
-  constructor(private http: HttpClient, private dotenv: ConfigService) {
-    const baseUrl = String(this.dotenv.get('API_URL') ?? '').replace(/\/+$/, '');
-    const endpoint = String(this.dotenv.get('TODO_ENDPOINT') ?? '/todos').replace(/^\/?/, '/');
-    this.apiUrl = `${baseUrl}${endpoint}`;
+  constructor(private http: HttpClient) {
+    // Values injected at build time by @ngx-env/builder
+    const baseUrl = import.meta.env.NG_APP_API_URL ?? 'http://localhost:3000/api';
+    const endpoint = import.meta.env.NG_APP_TODO_ENDPOINT ?? '/todos';
+
+    const normalizedBase = baseUrl.replace(/\/+$/, '');
+    const normalizedEndpoint = endpoint.replace(/^\/?/, '/');
+
+    this.apiUrl = `${normalizedBase}${normalizedEndpoint}`;
   }
 
   getTodos(): Observable<Todo[]> {
