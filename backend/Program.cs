@@ -77,7 +77,8 @@ try
   builder.Services.AddSingleton<ITodoRepository, CosmosTodoRepository>();
 
   // Controllers / Health checks
-  builder.Services.AddControllers();
+  builder.Services.AddControllers()
+    .AddNewtonsoftJson();
   builder.Services.AddHealthChecks();
 
   // Swagger / OpenAPI
