@@ -20,6 +20,10 @@ builder.Services.AddSingleton<CosmosClient>(sp =>
 // Repository
 builder.Services.AddSingleton<ITodoRepository, CosmosTodoRepository>();
 
+// Controllers / Health checks
+builder.Services.AddControllers();
+builder.Services.AddHealthChecks();
+
 // Swagger / OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -44,6 +48,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
 
 // --------------------------------------
 // REST API endpoints for /todos
