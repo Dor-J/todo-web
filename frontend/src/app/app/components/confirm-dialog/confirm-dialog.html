@@ -1,16 +1,16 @@
 @if (visible) {
   <div class="fixed inset-0 z-40 flex items-center justify-center">
-    <div class="h-full w-full bg-slate-900/50 backdrop-blur-sm" aria-hidden="true"></div>
-    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl shadow-slate-900/30">
-      <h2 class="text-xl font-semibold text-slate-900">Confirm</h2>
-      <p class="mt-2 text-sm text-slate-500">
+    <div class="h-full w-full bg-slate-900/50 dark:bg-slate-950/70 backdrop-blur-sm" aria-hidden="true"></div>
+    <div class="w-full max-w-md rounded-2xl bg-white dark:bg-slate-900 p-6 shadow-2xl shadow-slate-900/30 dark:shadow-slate-950/50">
+      <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Confirm</h2>
+      <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
         {{ message }}
       </p>
       <div class="mt-6 flex justify-end gap-3 text-xs font-semibold uppercase tracking-[0.3em]">
-        <button class="rounded-full border border-slate-200 px-4 py-2 text-slate-500" (click)="cancel.emit()">
+        <button class="rounded-full border border-slate-200 dark:border-slate-700 px-4 py-2 text-slate-500 dark:text-slate-400 transition hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600" (click)="cancel.emit()">
           {{ cancelLabel }}
         </button>
-        <button class="rounded-full bg-rose-600 px-4 py-2 text-white" (click)="confirm.emit()">
+        <button class="rounded-full bg-rose-600 dark:bg-rose-500 px-4 py-2 text-white transition hover:bg-rose-700 dark:hover:bg-rose-600" (click)="confirm.emit()">
           {{ confirmLabel }}
         </button>
       </div>

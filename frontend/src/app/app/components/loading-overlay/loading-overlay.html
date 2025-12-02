@@ -1,11 +1,11 @@
 @if (isLoading) {
   <div
-    class="pointer-events-none absolute inset-0 z-20 flex items-center justify-center rounded-3xl bg-slate-900/20 backdrop-blur-sm"
+    class="pointer-events-none absolute inset-0 z-20 flex items-center justify-center rounded-3xl bg-slate-900/20 dark:bg-slate-950/40 backdrop-blur-sm"
     aria-hidden="true"
   >
-    <div class="flex items-center gap-3 rounded-2xl bg-white px-5 py-3 shadow-xl shadow-slate-900/10">
-      <span class="h-3 w-3 animate-ping rounded-full bg-slate-600"></span>
-      <p class="text-sm font-medium text-slate-700">Syncing todos…</p>
+    <div class="flex items-center gap-3 rounded-2xl bg-white dark:bg-slate-800 px-5 py-3 shadow-xl shadow-slate-900/10 dark:shadow-slate-950/30">
+      <span class="h-3 w-3 animate-ping rounded-full bg-slate-600 dark:bg-slate-400"></span>
+      <p class="text-sm font-medium text-slate-700 dark:text-slate-300">Syncing todos…</p>
     </div>
   </div>
 }
