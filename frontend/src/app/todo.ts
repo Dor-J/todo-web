@@ -12,7 +12,9 @@ export class TodoService {
   private readonly apiUrl: string;
 
   constructor(private http: HttpClient, private dotenv: ConfigService) {
-    this.apiUrl = this.dotenv.get('API_URL') ?? '';
+    this.apiUrl =
+      String(this.dotenv.get('API_URL') ?? '') +
+      String(this.dotenv.get('TODO_ENDPOINT') ?? '/todos');
   }
 
   getTodos(): Observable<Todo[]> {
