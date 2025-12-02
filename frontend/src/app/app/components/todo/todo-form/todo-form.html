@@ -1,17 +1,26 @@
-<form class="space-y-4 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur">
+<form
+  class="space-y-4 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur"
+  [formGroup]="form"
+  (ngSubmit)="handleSubmit()"
+>
   <div class="flex flex-col gap-2">
     <label class="text-sm font-medium text-slate-600">Title</label>
     <input
       type="text"
+      formControlName="title"
       placeholder="What needs to get done?"
       class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
     />
+    @if (form.controls.title.invalid && form.controls.title.touched) {
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500">Title is required</p>
+    }
   </div>
 
   <div class="flex flex-col gap-2">
     <label class="text-sm font-medium text-slate-600">Description</label>
     <textarea
       rows="3"
+      formControlName="description"
       placeholder="Add more detail so future you knows what to do."
       class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
     ></textarea>
@@ -19,7 +28,11 @@
 
   <div class="flex flex-wrap gap-3">
     <label class="inline-flex items-center gap-2 text-sm text-slate-600">
-      <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-400" />
+      <input
+        type="checkbox"
+        formControlName="isCompleted"
+        class="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-400"
+      />
       Mark as completed
     </label>
 
@@ -36,6 +49,7 @@
     <button
       type="reset"
       class="rounded-full border border-slate-200 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+      (click)="form.reset({ title: '', description: '', isCompleted: false })"
     >
       Clear
     </button>
