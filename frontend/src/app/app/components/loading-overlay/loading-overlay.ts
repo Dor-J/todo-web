@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loading-overlay',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   templateUrl: './loading-overlay.html',
 })
 export class LoadingOverlay {
-
+  @Input() isLoading = false;
 }
