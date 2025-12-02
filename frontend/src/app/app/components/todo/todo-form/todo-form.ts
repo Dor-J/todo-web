@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -11,13 +11,13 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 export class TodoForm {
   @Output() save = new EventEmitter<{ title: string; description?: string; isCompleted?: boolean }>();
 
+  private readonly fb = inject(FormBuilder);
+
   readonly form = this.fb.nonNullable.group({
     title: ['', [Validators.required, Validators.maxLength(120)]],
     description: [''],
     isCompleted: [false],
   });
-
-  constructor(private readonly fb: FormBuilder) {}
 
   handleSubmit(): void {
     if (this.form.invalid) {
