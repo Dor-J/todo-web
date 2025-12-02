@@ -62,6 +62,7 @@ publish/
 
 ## Configs you usually don’t commit
 appsettings.Development.json
+appsettings.Production.json
 appsettings.Local.json
 appsettings.*.Local.json
 
