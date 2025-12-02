@@ -1,5 +1,5 @@
 <form
-  class="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 p-4 shadow-sm backdrop-blur"
+  class="space-y-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 p-3 shadow-sm backdrop-blur sm:space-y-4 sm:p-4"
   [formGroup]="form"
   (ngSubmit)="handleSubmit()"
 >
@@ -46,7 +46,7 @@
     </select>
   </div>
 
-  <div class="flex flex-wrap gap-3">
+  <div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
     <label class="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
       <input
         type="checkbox"
@@ -65,19 +65,19 @@
       Starred
     </label>
 
-    <span class="text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Due today</span>
+    <span class="inline-flex items-center text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Due today</span>
   </div>
 
-  <div class="flex flex-wrap gap-3">
+  <div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
     <button
       type="submit"
-      class="rounded-full bg-slate-900 dark:bg-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 dark:hover:bg-slate-600"
+      class="w-full rounded-full bg-slate-900 dark:bg-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 dark:hover:bg-slate-600 sm:w-auto"
     >
       Save Todo
     </button>
     <button
       type="reset"
-      class="rounded-full border border-slate-200 dark:border-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400 transition hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
+      class="w-full rounded-full border border-slate-200 dark:border-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400 transition hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600 sm:w-auto"
       (click)="form.reset({ title: '', description: '', isCompleted: false, priority: 'MEDIUM', starred: false })"
     >
       Clear
