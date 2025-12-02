@@ -1,4 +1,4 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 /**
  * Service for managing application theme (light/dark mode).
@@ -20,12 +20,6 @@ export class ThemeService {
   constructor() {
     // Initialize theme on service creation
     this.initializeTheme();
-
-    // Effect to apply theme class to HTML element when theme changes
-    effect(() => {
-      const isDark = this.isDarkMode();
-      this.applyTheme(isDark);
-    });
   }
 
   /**
@@ -42,6 +36,7 @@ export class ThemeService {
    */
   setTheme(isDark: boolean): void {
     this.isDarkMode.set(isDark);
+    this.applyTheme(isDark);
     this.persistTheme(isDark);
   }
 
@@ -70,13 +65,15 @@ export class ThemeService {
    * @param isDark - Whether to apply dark mode
    */
   private applyTheme(isDark: boolean): void {
-    const htmlElement = document.documentElement;
-    
-    if (isDark) {
-      htmlElement.classList.add('dark');
-    } else {
-      htmlElement.classList.remove('dark');
-    }
+    setTimeout(() => {
+      const htmlElement = document.documentElement;
+      
+      if (isDark) {
+        htmlElement.classList.add('dark');
+      } else {
+        htmlElement.classList.remove('dark');
+      }
+    }, 0);
   }
 
   /**

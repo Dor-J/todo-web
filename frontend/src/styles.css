@@ -1,5 +1,6 @@
 /* Global Tailwind entry point */
 @import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
@@ -14,14 +15,18 @@
   }
 
   :root.dark {
+    /* Inverted: Lighter, more vibrant colors for dark backgrounds */
     --brand-primary: #0cd3e5;
     --brand-accent: #8a8fff;
     --brand-warm: #ff8f74;
     --brand-success: #5fff9c;
+    /* Inverted: Dark background, light text */
     --brand-slate-50: #0f172a;
     --brand-slate-900: #f8fbff;
+    /* Inverted: Lighter muted for dark mode readability */
     --brand-muted: #cbd5f5;
-    --brand-glow: 0 15px 40px rgba(2, 184, 203, 0.35);
+    /* Enhanced glow for dark mode visibility */
+    --brand-glow: 0 15px 40px rgba(12, 211, 229, 0.4);
   }
 
   *,

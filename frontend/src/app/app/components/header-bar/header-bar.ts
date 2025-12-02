@@ -11,13 +11,8 @@ export class HeaderBar {
   constructor(readonly themeService: ThemeService) {}
 
   /**
-   * Gets the current theme state.
-   * @returns true if dark mode is enabled, false otherwise
+   * Toggles between light and dark theme.
    */
-  get isDarkMode(): boolean {
-    return this.themeService.theme();
-  }
-
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
