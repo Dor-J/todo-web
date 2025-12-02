@@ -67,7 +67,9 @@ public class CosmosTodoRepository : ITodoRepository
             CreatedAt = now,
             UpdatedAt = now,
             Description = _sanitizer.Sanitize(dto.Description),
-            CompletedAt = dto.IsCompleted ? now : null
+            CompletedAt = dto.IsCompleted ? now : null,
+            Priority = dto.Priority ?? Priority.Medium,
+            Starred = dto.Starred
         };
 
         var response = await _container.CreateItemAsync(todo, new PartitionKey(todo.Id));
@@ -89,6 +91,11 @@ public class CosmosTodoRepository : ITodoRepository
         existing.CompletedAt = dto.IsCompleted
             ? existing.CompletedAt ?? DateTime.UtcNow
             : null;
+        if (dto.Priority.HasValue)
+        {
+            existing.Priority = dto.Priority.Value;
+        }
+        existing.Starred = dto.Starred;
 
         var response = await _container.ReplaceItemAsync(
             existing,
