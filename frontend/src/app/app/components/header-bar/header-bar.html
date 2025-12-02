@@ -9,28 +9,32 @@
       <app-health-indicator></app-health-indicator>
       <button
         type="button"
-        (click)="toggleTheme()"
-        class="rounded-full border border-white/30 dark:border-white/20 px-4 py-2 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+        (click)="handleThemeToggle()"
+        class="w-full flex items-center justify-between rounded-lg border border-white/30 dark:border-white/20 px-4 py-3 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
         [attr.aria-label]="themeService.theme() ? 'Switch to light mode' : 'Switch to dark mode'"
-        [title]="themeService.theme() ? 'Switch to light mode' : 'Switch to dark mode'"
       >
-        @if (themeService.theme()) {
-          <span>☀️</span>
-        } @else {
-          <span>🌙</span>
-        }
+        <span>Theme</span>
+        <span>
+          @if (themeService.theme()) {
+            ☀️
+          } @else {
+            🌙
+          }
+        </span>
       </button>
+
       <button
         type="button"
-        (click)="refreshTodos()"
-        class="rounded-full border border-white/30 dark:border-white/20 px-4 py-2 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+        (click)="handleRefresh()"
+        class="w-full flex items-center justify-center rounded-lg border border-white/30 dark:border-white/20 px-4 py-3 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
       >
         Refresh
       </button>
+
       <button
         type="button"
-        (click)="focusTodoForm()"
-        class="rounded-full bg-white dark:bg-slate-800 px-5 py-2 text-sm font-semibold text-slate-900 dark:text-white transition hover:bg-slate-200 dark:hover:bg-slate-700"
+        (click)="handleFocusTodoForm()"
+        class="w-full flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white transition hover:bg-slate-200 dark:hover:bg-slate-700"
       >
         New Todo
       </button>
