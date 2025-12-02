@@ -1,1 +1,43 @@
-<p>todo-form works!</p>
+<form class="space-y-4 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur">
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium text-slate-600">Title</label>
+    <input
+      type="text"
+      placeholder="What needs to get done?"
+      class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+    />
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium text-slate-600">Description</label>
+    <textarea
+      rows="3"
+      placeholder="Add more detail so future you knows what to do."
+      class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+    ></textarea>
+  </div>
+
+  <div class="flex flex-wrap gap-3">
+    <label class="inline-flex items-center gap-2 text-sm text-slate-600">
+      <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-400" />
+      Mark as completed
+    </label>
+
+    <span class="text-xs uppercase tracking-[0.3em] text-slate-400">Due today</span>
+  </div>
+
+  <div class="flex flex-wrap gap-3">
+    <button
+      type="submit"
+      class="rounded-full bg-slate-900 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white"
+    >
+      Save Todo
+    </button>
+    <button
+      type="reset"
+      class="rounded-full border border-slate-200 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+    >
+      Clear
+    </button>
+  </div>
+</form>
