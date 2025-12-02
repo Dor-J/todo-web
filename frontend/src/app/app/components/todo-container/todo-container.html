@@ -30,4 +30,10 @@
       (deleteTodo)="handleDelete($event)"
     />
   </div>
+
+  <app-todo-edit-modal
+    [todo]="editingTodo()"
+    (dismiss)="dismissEdit()"
+    (save)="saveEdit($event)"
+  />
 </section>
