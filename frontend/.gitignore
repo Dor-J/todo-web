@@ -108,6 +108,9 @@ testem.log
 .env.development.local
 .env.production.local
 .env.test.local
+.env.development
+.env.production
+.env.test
 
 # ----------------------------------
 # System files
