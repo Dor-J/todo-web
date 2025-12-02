@@ -15,14 +15,14 @@ export class TodoStore {
   }
 
   private readonly todos = signal<Todo[]>([]);
-  readonly filters = signal<TodoFiltersState>({ query: '', status: 'all' });
+  readonly filters = signal<TodoFiltersState>({ query: '', status: 'all', isStarred: 'all', priority: 'all' });
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly toast = signal<string | null>(null);
   readonly pendingAction = signal<PendingAction>(null);
 
   readonly filteredTodos = computed(() => {
-    const { query, status } = this.filters();
+    const { query, status, isStarred, priority } = this.filters();
     const q = query.trim().toLowerCase();
     return this.todos().filter((todo) => {
       const matchesQuery =
@@ -33,7 +33,13 @@ export class TodoStore {
         status === 'all' ||
         (status === 'active' && !todo.isCompleted) ||
         (status === 'completed' && todo.isCompleted);
-      return matchesQuery && matchesStatus;
+      const matchesStarred =
+        !isStarred || isStarred === 'all' ||
+        (isStarred === 'starred' && todo.starred === true) ||
+        (isStarred === 'not-starred' && (todo.starred === false || todo.starred === undefined));
+      const matchesPriority =
+        !priority || priority === 'all' || todo.priority === priority;
+      return matchesQuery && matchesStatus && matchesStarred && matchesPriority;
     });
   });
 
