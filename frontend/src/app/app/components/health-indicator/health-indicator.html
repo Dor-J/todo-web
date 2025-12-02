@@ -1,0 +1,16 @@
+<div class="flex items-center gap-2" [attr.title]="'Database: ' + getStatusText()">
+  <div class="relative">
+    <div
+      class="h-2 w-2 rounded-full transition-colors"
+      [class]="getStatusColor()"
+    ></div>
+    <div
+      *ngIf="healthStatus.status === 'Unknown'"
+      class="absolute inset-0 h-2 w-2 animate-pulse rounded-full bg-yellow-500"
+    ></div>
+  </div>
+  <span class="text-xs font-medium text-white/70 dark:text-white/80">
+    {{ getStatusText() }}
+  </span>
+</div>
+
