@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoadingOverlay } from '../loading-overlay/loading-overlay';
 import { ErrorBanner } from '../error-banner/error-banner';
@@ -17,14 +17,13 @@ import type { TodoFiltersState } from '../../../models/filters';
   templateUrl: './todo-container.html',
 })
 export class TodoContainer implements OnInit {
+  private readonly store = inject(TodoStore);
   readonly filteredTodos = this.store.filteredTodos;
   readonly stats = this.store.stats;
   readonly loading = this.store.loading;
   readonly error = this.store.error;
   readonly toast = this.store.toast;
   readonly filters = this.store.filters;
-
-  constructor(private readonly store: TodoStore) {}
 
   ngOnInit(): void {
     this.store.loadTodos();
