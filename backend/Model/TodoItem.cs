@@ -1,11 +1,11 @@
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace backend.Models;
 
 public class TodoItem
 {
     // Cosmos requires "id" as string
-    [JsonPropertyName("id")]
+    [JsonProperty(PropertyName = "id")]
     public string Id { get; set; } = Guid.NewGuid().ToString();
 
     public string Title { get; set; } = default!;
