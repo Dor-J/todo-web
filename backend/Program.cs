@@ -157,7 +157,7 @@ try
 
     var todos = await repo.GetAllAsync();
     return Results.Ok(todos);
-  }).RequireRateLimiting();
+  });
 
   // 2. GET /todos/{id}
   app.MapGet("/todos/{id}", async (
@@ -181,7 +181,7 @@ try
 
     var todo = await repo.GetByIdAsync(id);
     return todo is null ? Results.NotFound() : Results.Ok(todo);
-  }).RequireRateLimiting();
+  });
 
   // 3. POST /todos
   app.MapPost("/todos", async (
@@ -223,7 +223,7 @@ try
 
     var created = await repo.CreateAsync(dto);
     return Results.Created($"/todos/{created.Id}", created);
-  }).RequireRateLimiting();
+  });
 
   // 4. PUT /todos/{id}
   app.MapPut("/todos/{id}", async (
@@ -272,7 +272,7 @@ try
 
     var updated = await repo.UpdateAsync(id, dto);
     return updated is null ? Results.NotFound() : Results.Ok(updated);
-  }).RequireRateLimiting();
+  });
 
   // 5. DELETE /todos/{id}
   app.MapDelete("/todos/{id}", async (
@@ -296,7 +296,7 @@ try
 
     var deleted = await repo.DeleteAsync(id);
     return deleted ? Results.NoContent() : Results.NotFound();
-  }).RequireRateLimiting();
+  });
 
   // Global exception handler
   app.UseExceptionHandler(exceptionHandlerApp =>
