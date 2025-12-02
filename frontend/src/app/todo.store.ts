@@ -38,7 +38,7 @@ export class TodoStore {
         (isStarred === 'starred' && todo.starred === true) ||
         (isStarred === 'not-starred' && (todo.starred === false || todo.starred === undefined));
       const matchesPriority =
-        !priority || priority === 'all' || todo.priority === priority;
+        !priority || priority === 'all' || (todo.priority?.toUpperCase() === priority);
       return matchesQuery && matchesStatus && matchesStarred && matchesPriority;
     });
   });
