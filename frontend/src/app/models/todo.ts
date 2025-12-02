@@ -6,4 +6,6 @@ export interface Todo {
   createdAt: string;
   updatedAt?: string | null;
   completedAt?: string | null;
+  priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  starred: boolean;
 }
