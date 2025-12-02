@@ -8,6 +8,8 @@ export interface CreateTodoDto {
   title: string;
   description?: string;
   isCompleted?: boolean;
+  priority?: 'HIGH' | 'MEDIUM' | 'LOW';
+  starred?: boolean;
 }
 
 export interface UpdateTodoDto {
@@ -16,6 +18,8 @@ export interface UpdateTodoDto {
   isCompleted?: boolean;
   completedAt?: string | null;
   updatedAt?: string | null;
+  priority?: 'HIGH' | 'MEDIUM' | 'LOW';
+  starred?: boolean;
 }
 
 @Injectable({
