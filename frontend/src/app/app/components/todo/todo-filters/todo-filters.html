@@ -9,6 +9,8 @@
     <div class="relative">
       <input
         type="search"
+        [value]="filters.query"
+        (input)="updateQuery($any($event.target).value)"
         placeholder="Find a todo"
         class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
       />
@@ -19,21 +21,41 @@
   </label>
 
   <div class="flex flex-wrap gap-2">
-    <button class="rounded-full bg-slate-900 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-white">
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="filters.status === 'all'"
+      [class.text-white]="filters.status === 'all'"
+      [class.border]="filters.status !== 'all'"
+      [class.border-slate-200]="filters.status !== 'all'"
+      [class.text-slate-500]="filters.status !== 'all'"
+      (click)="setStatus('all')"
+    >
       All
     </button>
-    <button class="rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="filters.status === 'active'"
+      [class.text-white]="filters.status === 'active'"
+      [class.border]="filters.status !== 'active'"
+      [class.border-slate-200]="filters.status !== 'active'"
+      [class.text-slate-500]="filters.status !== 'active'"
+      (click)="setStatus('active')"
+    >
       Active
     </button>
-    <button class="rounded-full border border-slate-200 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+    <button
+      type="button"
+      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      [class.bg-slate-900]="filters.status === 'completed'"
+      [class.text-white]="filters.status === 'completed'"
+      [class.border]="filters.status !== 'completed'"
+      [class.border-slate-200]="filters.status !== 'completed'"
+      [class.text-slate-500]="filters.status !== 'completed'"
+      (click)="setStatus('completed')"
+    >
       Completed
-    </button>
-  </div>
-
-  <div class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm">
-    <span class="font-medium text-slate-600">Group by</span>
-    <button class="rounded-full bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 shadow">
-      Creation date
     </button>
   </div>
 </section>
