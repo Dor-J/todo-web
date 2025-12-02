@@ -88,4 +88,12 @@ export class TodoContainer implements OnInit {
   dismissError(): void {
     this.store.clearError();
   }
+
+  handleToggleStarred(todo: Todo): void {
+    const updated: Todo = {
+      ...todo,
+      starred: !(todo.starred ?? false),
+    };
+    this.store.updateTodo(updated);
+  }
 }
