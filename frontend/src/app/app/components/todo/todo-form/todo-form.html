@@ -1,54 +1,62 @@
 <form
-  class="space-y-4 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur"
+  class="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 p-4 shadow-sm backdrop-blur"
   [formGroup]="form"
   (ngSubmit)="handleSubmit()"
 >
   <div class="flex flex-col gap-2">
-    <label class="text-sm font-medium text-slate-600">Title</label>
+    <label class="text-sm font-medium text-slate-600 dark:text-slate-300">Title</label>
     <input
+      #titleInput
       type="text"
       formControlName="title"
       placeholder="What needs to get done?"
-      class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+      [class]="'w-full rounded-xl border px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 ' + (form.controls.title.invalid && form.controls.title.touched ? 'border-rose-500 dark:border-rose-400 bg-white dark:bg-slate-900 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-rose-200 dark:focus:ring-rose-900' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700')"
     />
-    @if (form.controls.title.invalid && form.controls.title.touched) {
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500">Title is required</p>
+    @if (getErrorMessage(form.controls.title, 'Title')) {
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
+        {{ getErrorMessage(form.controls.title, 'Title') }}
+      </p>
     }
   </div>
 
   <div class="flex flex-col gap-2">
-    <label class="text-sm font-medium text-slate-600">Description</label>
+    <label class="text-sm font-medium text-slate-600 dark:text-slate-300">Description</label>
     <textarea
       rows="3"
       formControlName="description"
       placeholder="Add more detail so future you knows what to do."
-      class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+      [class]="'w-full rounded-xl border px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 ' + (form.controls.description.invalid && form.controls.description.touched ? 'border-rose-500 dark:border-rose-400 bg-white dark:bg-slate-900 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-rose-200 dark:focus:ring-rose-900' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700')"
     ></textarea>
+    @if (getErrorMessage(form.controls.description, 'Description')) {
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
+        {{ getErrorMessage(form.controls.description, 'Description') }}
+      </p>
+    }
   </div>
 
   <div class="flex flex-wrap gap-3">
-    <label class="inline-flex items-center gap-2 text-sm text-slate-600">
+    <label class="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
       <input
         type="checkbox"
         formControlName="isCompleted"
-        class="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-400"
+        class="h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 focus:ring-slate-400 dark:focus:ring-slate-600"
       />
       Mark as completed
     </label>
 
-    <span class="text-xs uppercase tracking-[0.3em] text-slate-400">Due today</span>
+    <span class="text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Due today</span>
   </div>
 
   <div class="flex flex-wrap gap-3">
     <button
       type="submit"
-      class="rounded-full bg-slate-900 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white"
+      class="rounded-full bg-slate-900 dark:bg-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 dark:hover:bg-slate-600"
     >
       Save Todo
     </button>
     <button
       type="reset"
-      class="rounded-full border border-slate-200 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-slate-500"
+      class="rounded-full border border-slate-200 dark:border-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400 transition hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
       (click)="form.reset({ title: '', description: '', isCompleted: false })"
     >
       Clear

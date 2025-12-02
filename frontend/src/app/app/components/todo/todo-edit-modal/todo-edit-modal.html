@@ -1,17 +1,17 @@
 @if (todo) {
   <section class="fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" (click)="close()" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-slate-950/60 dark:bg-slate-950/80 backdrop-blur-sm" (click)="close()" aria-hidden="true"></div>
 
     <div
       role="dialog"
       aria-modal="true"
-      class="relative z-10 w-full max-w-2xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10"
+      class="relative z-10 w-full max-w-2xl overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl shadow-slate-900/10 dark:shadow-slate-950/50"
     >
-      <header class="flex items-start justify-between border-b border-slate-100 px-6 py-4">
+      <header class="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 px-6 py-4">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Edit todo</p>
-          <h3 class="text-2xl font-semibold text-slate-950">{{ todo.title }}</h3>
-          <p class="text-xs text-slate-400">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Edit todo</p>
+          <h3 class="text-2xl font-semibold text-slate-950 dark:text-slate-100">{{ todo.title }}</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-500">
             Created {{ todo.createdAt | date: 'mediumDate' }}
             @if (todo.updatedAt) {
               • Updated {{ todo.updatedAt | date: 'short' }}
@@ -20,7 +20,7 @@
         </div>
         <button
           type="button"
-          class="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 hover:text-slate-900"
+          class="rounded-full border border-slate-200 dark:border-slate-700 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400 transition hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
           (click)="close()"
         >
           Close
@@ -29,33 +29,40 @@
 
       <form class="space-y-5 px-6 py-6" [formGroup]="form" (ngSubmit)="handleSubmit()">
         <div class="flex flex-col gap-2">
-          <label class="text-sm font-medium text-slate-600">Title</label>
+          <label class="text-sm font-medium text-slate-600 dark:text-slate-300">Title</label>
           <input
             type="text"
             formControlName="title"
-            class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+            [class]="'w-full rounded-2xl border px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 ' + (form.controls.title.invalid && form.controls.title.touched ? 'border-rose-500 dark:border-rose-400 bg-white dark:bg-slate-800 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-rose-200 dark:focus:ring-rose-900' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700')"
             placeholder="Give this todo a clear action"
           />
-          @if (form.controls.title.invalid && form.controls.title.touched) {
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500">Title is required</p>
+          @if (getErrorMessage(form.controls.title, 'Title')) {
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
+              {{ getErrorMessage(form.controls.title, 'Title') }}
+            </p>
           }
         </div>
 
         <div class="flex flex-col gap-2">
-          <label class="text-sm font-medium text-slate-600">Description</label>
+          <label class="text-sm font-medium text-slate-600 dark:text-slate-300">Description</label>
           <textarea
             rows="4"
             formControlName="description"
-            class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+            [class]="'w-full rounded-2xl border px-4 py-3 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 ' + (form.controls.description.invalid && form.controls.description.touched ? 'border-rose-500 dark:border-rose-400 bg-white dark:bg-slate-800 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-rose-200 dark:focus:ring-rose-900' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700')"
             placeholder="Add context, links, or acceptance criteria."
           ></textarea>
+          @if (getErrorMessage(form.controls.description, 'Description')) {
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
+              {{ getErrorMessage(form.controls.description, 'Description') }}
+            </p>
+          }
         </div>
 
-        <label class="inline-flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+        <label class="inline-flex items-center gap-3 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 px-4 py-3 text-sm text-slate-600 dark:text-slate-300">
           <input
             type="checkbox"
             formControlName="isCompleted"
-            class="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-400"
+            class="h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 focus:ring-slate-400 dark:focus:ring-slate-600"
           />
           Mark as completed
         </label>
@@ -63,14 +70,14 @@
         <div class="flex flex-wrap justify-end gap-3 pt-2 text-xs font-semibold uppercase tracking-[0.3em]">
           <button
             type="button"
-            class="rounded-full border border-slate-200 px-6 py-2 text-slate-500 hover:text-slate-900"
+            class="rounded-full border border-slate-200 dark:border-slate-700 px-6 py-2 text-slate-500 dark:text-slate-400 transition hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
             (click)="close()"
           >
             Cancel
           </button>
           <button
             type="submit"
-            class="rounded-full bg-slate-900 px-8 py-2 text-white shadow shadow-slate-900/20 hover:bg-slate-800"
+            class="rounded-full bg-slate-900 dark:bg-slate-700 px-8 py-2 text-white shadow shadow-slate-900/20 dark:shadow-slate-950/30 transition hover:bg-slate-800 dark:hover:bg-slate-600"
           >
             Save changes
           </button>

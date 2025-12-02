@@ -1,6 +1,7 @@
 using System.Net;
 using backend.Dtos;
 using backend.Models;
+using backend.Services;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
 
@@ -9,11 +10,16 @@ namespace backend.Data;
 public class CosmosTodoRepository : ITodoRepository
 {
     private readonly Container _container;
+    private readonly IHtmlSanitizerService _sanitizer;
 
-    public CosmosTodoRepository(CosmosClient client, IOptions<CosmosOptions> options)
+    public CosmosTodoRepository(
+        CosmosClient client,
+        IOptions<CosmosOptions> options,
+        IHtmlSanitizerService sanitizer)
     {
         var opt = options.Value;
         _container = client.GetContainer(opt.DatabaseId, opt.ContainerId);
+        _sanitizer = sanitizer;
     }
 
     public async Task<IEnumerable<TodoItem>> GetAllAsync()
@@ -56,11 +62,11 @@ public class CosmosTodoRepository : ITodoRepository
         var todo = new TodoItem
         {
             Id = Guid.NewGuid().ToString(),
-            Title = dto.Title,
+            Title = _sanitizer.Sanitize(dto.Title) ?? string.Empty,
             IsCompleted = dto.IsCompleted,
             CreatedAt = now,
             UpdatedAt = now,
-            Description = dto.Description,
+            Description = _sanitizer.Sanitize(dto.Description),
             CompletedAt = dto.IsCompleted ? now : null
         };
 
@@ -76,9 +82,9 @@ public class CosmosTodoRepository : ITodoRepository
             return null;
         }
 
-        existing.Title = dto.Title;
+        existing.Title = _sanitizer.Sanitize(dto.Title) ?? string.Empty;
         existing.IsCompleted = dto.IsCompleted;
-        existing.Description = dto.Description;
+        existing.Description = _sanitizer.Sanitize(dto.Description);
         existing.UpdatedAt = DateTime.UtcNow;
         existing.CompletedAt = dto.IsCompleted
             ? existing.CompletedAt ?? DateTime.UtcNow

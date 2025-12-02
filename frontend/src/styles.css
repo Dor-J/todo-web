@@ -1,5 +1,6 @@
 /* Global Tailwind entry point */
 @import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
@@ -14,14 +15,18 @@
   }
 
   :root.dark {
+    /* Inverted: Lighter, more vibrant colors for dark backgrounds */
     --brand-primary: #0cd3e5;
     --brand-accent: #8a8fff;
     --brand-warm: #ff8f74;
     --brand-success: #5fff9c;
+    /* Inverted: Dark background, light text */
     --brand-slate-50: #0f172a;
     --brand-slate-900: #f8fbff;
+    /* Inverted: Lighter muted for dark mode readability */
     --brand-muted: #cbd5f5;
-    --brand-glow: 0 15px 40px rgba(2, 184, 203, 0.35);
+    /* Enhanced glow for dark mode visibility */
+    --brand-glow: 0 15px 40px rgba(12, 211, 229, 0.4);
   }
 
   *,
@@ -37,6 +42,12 @@
     min-height: 100vh;
     color: var(--brand-slate-900);
     text-rendering: optimizeLegibility;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .dark body {
+    background: radial-gradient(circle at top, rgba(2, 184, 203, 0.12), transparent 45%),
+      linear-gradient(120deg, #0f172a, #1e293b);
   }
 
   ::selection {
@@ -115,13 +126,21 @@
   }
 
   .card-elevated {
-    @apply rounded-3xl border border-white/80 shadow-2xl backdrop-blur;
+    @apply rounded-3xl border border-white/80 dark:border-slate-700/80 shadow-2xl backdrop-blur;
     box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+  }
+
+  .dark .card-elevated {
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
   }
 
   .skeleton {
     background: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.6));
     background-size: 200% 100%;
     animation: shimmer 1.6s linear infinite;
+  }
+
+  .dark .skeleton {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
   }
 }

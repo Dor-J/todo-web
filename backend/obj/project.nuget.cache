@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "EuEUGrHhRCA=",
+  "dgSpecHash": "4Rr9OyN6neI=",
   "success": true,
   "projectFilePath": "C:\\Users\\DOR\\Desktop\\isure-test\\todo-web\\backend\\backend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\DOR\\.nuget\\packages\\anglesharp\\0.17.1\\anglesharp.0.17.1.nupkg.sha512",
+    "C:\\Users\\DOR\\.nuget\\packages\\anglesharp.css\\0.17.0\\anglesharp.css.0.17.0.nupkg.sha512",
     "C:\\Users\\DOR\\.nuget\\packages\\azure.core\\1.44.1\\azure.core.1.44.1.nupkg.sha512",
+    "C:\\Users\\DOR\\.nuget\\packages\\htmlsanitizer\\8.1.870\\htmlsanitizer.8.1.870.nupkg.sha512",
     "C:\\Users\\DOR\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.0\\microsoft.aspnetcore.openapi.10.0.0.nupkg.sha512",
     "C:\\Users\\DOR\\.nuget\\packages\\microsoft.azure.cosmos\\3.56.0\\microsoft.azure.cosmos.3.56.0.nupkg.sha512",
     "C:\\Users\\DOR\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

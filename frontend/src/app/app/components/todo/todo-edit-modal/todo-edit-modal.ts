@@ -8,8 +8,9 @@ import {
   SimpleChanges,
   inject,
 } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import type { Todo } from '../../../../todo';
+import { getValidationErrorMessage, noWhitespaceValidator } from '../validators';
 
 export interface TodoEditPayload {
   title: string;
@@ -31,8 +32,8 @@ export class TodoEditModal implements OnChanges {
   private readonly fb = inject(FormBuilder);
 
   readonly form = this.fb.nonNullable.group({
-    title: ['', [Validators.required, Validators.maxLength(120)]],
-    description: [''],
+    title: ['', [Validators.required, Validators.maxLength(120), noWhitespaceValidator()]],
+    description: ['', [Validators.maxLength(1000)]],
     isCompleted: [false],
   });
 
@@ -52,6 +53,13 @@ export class TodoEditModal implements OnChanges {
         });
       }
     }
+  }
+
+  /**
+   * Gets the validation error message for a form control
+   */
+  getErrorMessage(control: AbstractControl | null, fieldName: string): string | null {
+    return getValidationErrorMessage(control, fieldName);
   }
 
   close(): void {
