@@ -14,10 +14,12 @@
         {{ todo.title }}
       </p>
       <span
-        [class]="'rounded-full px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2em] ' + 
-          ((todo.priority ?? 'MEDIUM') === 'HIGH' ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400' : 
-           (todo.priority ?? 'MEDIUM') === 'MEDIUM' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' : 
-           'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-400')"
+        [ngClass]="{
+          'rounded-full px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2em]': true,
+          'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400': (todo.priority ?? 'MEDIUM') === 'HIGH',
+          'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400': (todo.priority ?? 'MEDIUM') === 'MEDIUM',
+          'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-400': (todo.priority ?? 'MEDIUM') !== 'HIGH' && (todo.priority ?? 'MEDIUM') !== 'MEDIUM'
+        }"
       >
         {{ todo.priority ?? 'MEDIUM' }}
       </span>
