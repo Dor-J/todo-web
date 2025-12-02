@@ -5,6 +5,7 @@ declare interface Env {
   readonly NG_APP_API_URL: string;
   readonly NG_APP_API_URL_HTTPS: string;
   readonly NG_APP_TODO_ENDPOINT: string;
+  readonly NG_APP_HEALTH_ENDPOINT: string;
 
   [key: string]: string | undefined;
 }
