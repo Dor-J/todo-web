@@ -11,7 +11,7 @@ export interface HealthStatus {
 })
 export class HealthService {
   private readonly healthUrl: string;
-  private readonly checkInterval = 30000; // Check every 30 seconds
+  private readonly checkInterval = 60000; // Check every 60 seconds
 
   constructor(private http: HttpClient) {
     // Values injected at build time by @ngx-env/builder
