@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { getValidationErrorMessage, noWhitespaceValidator } from '../validators';
 
 @Component({
   selector: 'app-todo-form',
@@ -14,10 +15,17 @@ export class TodoForm {
   private readonly fb = inject(FormBuilder);
 
   readonly form = this.fb.nonNullable.group({
-    title: ['', [Validators.required, Validators.maxLength(120)]],
-    description: [''],
+    title: ['', [Validators.required, Validators.maxLength(120), noWhitespaceValidator()]],
+    description: ['', [Validators.maxLength(1000)]],
     isCompleted: [false],
   });
+
+  /**
+   * Gets the validation error message for a form control
+   */
+  getErrorMessage(control: AbstractControl | null, fieldName: string): string | null {
+    return getValidationErrorMessage(control, fieldName);
+  }
 
   handleSubmit(): void {
     if (this.form.invalid) {
