@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-error-banner',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './error-banner.html',
 })
 export class ErrorBanner {
-
+  @Input() message: string | null = null;
+  @Output() dismiss = new EventEmitter<void>();
 }
