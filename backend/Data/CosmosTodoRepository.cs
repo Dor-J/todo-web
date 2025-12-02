@@ -32,7 +32,16 @@ public class CosmosTodoRepository : ITodoRepository
         while (query.HasMoreResults)
         {
             var response = await query.ReadNextAsync();
-            results.AddRange(response);
+            foreach (var todo in response)
+            {
+                // Normalize todos that might be missing priority/starred fields
+                if (todo.Priority == default(Priority))
+                {
+                    todo.Priority = Priority.Medium;
+                }
+                // Starred defaults to false which is correct, but ensure it's explicitly set
+                results.Add(todo);
+            }
         }
 
         return results;
@@ -47,7 +56,14 @@ public class CosmosTodoRepository : ITodoRepository
                 new PartitionKey(id)
             );
 
-            return response.Resource;
+            var todo = response.Resource;
+            // Normalize todo that might be missing priority/starred fields
+            if (todo.Priority == default(Priority))
+            {
+                todo.Priority = Priority.Medium;
+            }
+            
+            return todo;
         }
         catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
