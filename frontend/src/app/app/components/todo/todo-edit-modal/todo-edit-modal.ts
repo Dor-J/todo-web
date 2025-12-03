@@ -7,6 +7,9 @@ import {
   Output,
   SimpleChanges,
   inject,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import type { Todo } from '../../../../todo';
@@ -26,12 +29,15 @@ export interface TodoEditPayload {
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './todo-edit-modal.html',
 })
-export class TodoEditModal implements OnChanges {
+export class TodoEditModal implements OnChanges, AfterViewChecked {
   @Input() todo: Todo | null = null;
   @Output() dismiss = new EventEmitter<void>();
   @Output() save = new EventEmitter<TodoEditPayload>();
 
+  @ViewChild('titleInput', { static: false }) titleInputRef?: ElementRef<HTMLInputElement>;
+
   private readonly fb = inject(FormBuilder);
+  private shouldFocus = false;
 
   readonly form = this.fb.nonNullable.group({
     title: ['', [Validators.required, Validators.maxLength(120), noWhitespaceValidator()]],
@@ -49,8 +55,10 @@ export class TodoEditModal implements OnChanges {
           description: this.todo.description ?? '',
           isCompleted: this.todo.isCompleted,
           priority: (this.todo.priority?.toUpperCase() as 'HIGH' | 'MEDIUM' | 'LOW') ?? 'MEDIUM',
-          starred: this.todo.starred,
+          starred: this.todo.starred ?? false,
         });
+        // Set flag to focus after view is checked
+        this.shouldFocus = true;
       } else {
         this.form.reset({
           title: '',
@@ -59,7 +67,19 @@ export class TodoEditModal implements OnChanges {
           priority: 'MEDIUM',
           starred: false,
         });
+        this.shouldFocus = false;
       }
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.shouldFocus && this.titleInputRef?.nativeElement) {
+      // Use setTimeout to ensure the DOM is fully rendered
+      setTimeout(() => {
+        this.titleInputRef?.nativeElement?.focus();
+        this.titleInputRef?.nativeElement?.select();
+        this.shouldFocus = false;
+      }, 0);
     }
   }
 
