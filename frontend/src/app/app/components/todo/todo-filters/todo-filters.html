@@ -12,6 +12,7 @@
         (input)="updateQuery($any($event.target).value)"
         placeholder="Find a todo"
         class="px-4 py-2.5 w-full bg-white rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-slate-400 dark:focus:border-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700"
+        aria-label="Search todos"
       />
       <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500"
         >⌘K</span
@@ -32,6 +33,8 @@
       [class.text-slate-500]="filters.status !== 'all'"
       [class.dark:text-slate-400]="filters.status !== 'all'"
       (click)="setStatus('all')"
+      aria-label="Show all todos"
+      [attr.aria-pressed]="filters.status === 'all'"
     >
       All
     </button>
@@ -47,6 +50,8 @@
       [class.text-slate-500]="filters.status !== 'active'"
       [class.dark:text-slate-400]="filters.status !== 'active'"
       (click)="setStatus('active')"
+      aria-label="Show active todos"
+      [attr.aria-pressed]="filters.status === 'active'"
     >
       Active
     </button>
@@ -62,6 +67,8 @@
       [class.text-slate-500]="filters.status !== 'completed'"
       [class.dark:text-slate-400]="filters.status !== 'completed'"
       (click)="setStatus('completed')"
+      aria-label="Show completed todos"
+      [attr.aria-pressed]="filters.status === 'completed'"
     >
       Completed
     </button>
@@ -80,6 +87,8 @@
       [class.text-slate-500]="(filters.isStarred ?? 'all') !== 'all'"
       [class.dark:text-slate-400]="(filters.isStarred ?? 'all') !== 'all'"
       (click)="setStarred('all')"
+      aria-label="Show all todos regardless of star status"
+      [attr.aria-pressed]="(filters.isStarred ?? 'all') === 'all'"
     >
       All
     </button>
@@ -95,6 +104,8 @@
       [class.text-slate-500]="(filters.isStarred ?? 'all') !== 'starred'"
       [class.dark:text-slate-400]="(filters.isStarred ?? 'all') !== 'starred'"
       (click)="setStarred('starred')"
+      aria-label="Show only starred todos"
+      [attr.aria-pressed]="(filters.isStarred ?? 'all') === 'starred'"
     >
       Starred
     </button>
@@ -110,6 +121,8 @@
       [class.text-slate-500]="(filters.isStarred ?? 'all') !== 'not-starred'"
       [class.dark:text-slate-400]="(filters.isStarred ?? 'all') !== 'not-starred'"
       (click)="setStarred('not-starred')"
+      aria-label="Show only unstarred todos"
+      [attr.aria-pressed]="(filters.isStarred ?? 'all') === 'not-starred'"
     >
       No Stars
     </button>
@@ -128,6 +141,8 @@
       [class.text-slate-500]="(filters.priority ?? 'all') !== 'all'"
       [class.dark:text-slate-400]="(filters.priority ?? 'all') !== 'all'"
       (click)="setPriority('all')"
+      aria-label="Show all todos regardless of priority"
+      [attr.aria-pressed]="(filters.priority ?? 'all') === 'all'"
     >
       All
     </button>
@@ -143,6 +158,8 @@
       [class.text-slate-500]="(filters.priority ?? 'all') !== 'HIGH'"
       [class.dark:text-slate-400]="(filters.priority ?? 'all') !== 'HIGH'"
       (click)="setPriority('HIGH')"
+      aria-label="Show only high priority todos"
+      [attr.aria-pressed]="(filters.priority ?? 'all') === 'HIGH'"
     >
       High
     </button>
@@ -158,6 +175,8 @@
       [class.text-slate-500]="(filters.priority ?? 'all') !== 'MEDIUM'"
       [class.dark:text-slate-400]="(filters.priority ?? 'all') !== 'MEDIUM'"
       (click)="setPriority('MEDIUM')"
+      aria-label="Show only medium priority todos"
+      [attr.aria-pressed]="(filters.priority ?? 'all') === 'MEDIUM'"
     >
       Medium
     </button>
@@ -173,6 +192,8 @@
       [class.text-slate-500]="(filters.priority ?? 'all') !== 'LOW'"
       [class.dark:text-slate-400]="(filters.priority ?? 'all') !== 'LOW'"
       (click)="setPriority('LOW')"
+      aria-label="Show only low priority todos"
+      [attr.aria-pressed]="(filters.priority ?? 'all') === 'LOW'"
     >
       Low
     </button>

@@ -2,6 +2,8 @@
 <div class="flex fixed inset-x-0 bottom-8 z-40 justify-center px-4 pointer-events-none">
   <div
     class="flex gap-4 justify-between items-center px-5 py-4 w-full max-w-md text-white rounded-2xl ring-1 shadow-2xl pointer-events-auto bg-slate-900/95 dark:bg-slate-800/95 ring-black/10 dark:ring-white/10"
+    role="status"
+    aria-live="polite"
   >
     <div class="space-y-1">
       <p class="text-xs font-semibold tracking-wide uppercase text-white/70 dark:text-white/80">Done</p>
@@ -11,6 +13,7 @@
       type="button"
       class="inline-flex items-center px-3 py-1 text-xs font-medium uppercase rounded-full border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40"
       (click)="dismiss.emit()"
+      aria-label="Close notification"
     >
       Close
     </button>

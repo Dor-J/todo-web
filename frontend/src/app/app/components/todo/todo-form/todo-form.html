@@ -11,9 +11,11 @@
       formControlName="title"
       placeholder="What needs to get done?"
       [class]="'w-full rounded-xl border px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 ' + (form.controls.title.invalid && form.controls.title.touched ? 'border-rose-500 dark:border-rose-400 bg-white dark:bg-slate-900 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-rose-200 dark:focus:ring-rose-900' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700')"
+      [attr.aria-invalid]="form.controls.title.invalid && form.controls.title.touched"
+      [attr.aria-describedby]="form.controls.title.invalid && form.controls.title.touched ? 'title-error' : null"
     />
     @if (getErrorMessage(form.controls.title, 'Title')) {
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
+      <p id="title-error" class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
         {{ getErrorMessage(form.controls.title, 'Title') }}
       </p>
     }
@@ -26,9 +28,11 @@
       formControlName="description"
       placeholder="Add more detail so future you knows what to do."
       [class]="'w-full rounded-xl border px-4 py-2.5 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 ' + (form.controls.description.invalid && form.controls.description.touched ? 'border-rose-500 dark:border-rose-400 bg-white dark:bg-slate-900 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-rose-200 dark:focus:ring-rose-900' : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700')"
+      [attr.aria-invalid]="form.controls.description.invalid && form.controls.description.touched"
+      [attr.aria-describedby]="form.controls.description.invalid && form.controls.description.touched ? 'description-error' : null"
     ></textarea>
     @if (getErrorMessage(form.controls.description, 'Description')) {
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
+      <p id="description-error" class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-500 dark:text-rose-400">
         {{ getErrorMessage(form.controls.description, 'Description') }}
       </p>
     }
@@ -39,6 +43,7 @@
     <select
       formControlName="priority"
       [class]="'w-full rounded-xl border px-4 py-2.5 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-slate-400 dark:focus:border-slate-600 focus:ring-slate-200 dark:focus:ring-slate-700'"
+      aria-label="Select priority level"
     >
       <option value="LOW">Low</option>
       <option value="MEDIUM">Medium</option>
@@ -52,6 +57,7 @@
         type="checkbox"
         formControlName="isCompleted"
         class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 focus:ring-slate-400 dark:focus:ring-slate-600"
+        aria-label="Mark todo as completed"
       />
       Mark as completed
     </label>
@@ -61,6 +67,7 @@
         type="checkbox"
         formControlName="starred"
         class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 focus:ring-slate-400 dark:focus:ring-slate-600"
+        aria-label="Star this todo"
       />
       Starred
     </label>
@@ -72,6 +79,7 @@
     <button
       type="submit"
       class="w-full rounded-full bg-slate-900 dark:bg-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 dark:hover:bg-slate-600 sm:w-auto"
+      aria-label="Save new todo"
     >
       Save Todo
     </button>
@@ -79,6 +87,7 @@
       type="reset"
       class="w-full rounded-full border border-slate-200 dark:border-slate-700 px-6 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400 transition hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600 sm:w-auto"
       (click)="form.reset({ title: '', description: '', isCompleted: false, priority: 'MEDIUM', starred: false })"
+      aria-label="Clear form"
     >
       Clear
     </button>
