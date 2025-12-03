@@ -25,6 +25,7 @@
         type="button"
         (click)="refreshTodos()"
         class="px-4 py-2 text-sm font-medium rounded-full border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+        aria-label="Refresh todos"
       >
         Refresh
       </button>
@@ -32,6 +33,7 @@
         type="button"
         (click)="focusTodoForm()"
         class="px-4 py-2 text-sm font-medium rounded-full border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+        aria-label="Create new todo"
       >
         New Todo
       </button>
@@ -145,6 +147,7 @@
               type="button"
               (click)="handleRefresh()"
               class="flex justify-center items-center px-4 py-3 w-full text-sm font-medium rounded-lg border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+              aria-label="Refresh todos"
             >
               Refresh
             </button>
@@ -154,6 +157,7 @@
               type="button"
               (click)="handleFocusTodoForm()"
               class="flex justify-center items-center px-4 py-3 w-full text-sm font-medium rounded-lg border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+              aria-label="Create new todo"
             >
               New Todo
             </button>
