@@ -1,4 +1,7 @@
-<div class="flex items-center gap-2" [attr.title]="'Database: ' + getStatusText()">
+<div 
+  class="flex items-center gap-2 rounded-full border border-white/30 dark:border-white/20 px-4 py-2 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+  [attr.title]="'Database: ' + getStatusText()"
+>
   <div class="relative">
     <div
       class="h-2 w-2 rounded-full transition-colors"
@@ -9,7 +12,7 @@
       class="absolute inset-0 h-2 w-2 animate-pulse rounded-full bg-yellow-500"
     ></div>
   </div>
-  <span class="text-xs font-medium text-white/70 dark:text-white/80">
+  <span class="text-sm font-medium">
     {{ getStatusText() }}
   </span>
 </div>

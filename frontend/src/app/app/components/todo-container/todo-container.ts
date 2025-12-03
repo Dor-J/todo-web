@@ -6,7 +6,7 @@ import { TodoFilters } from '../todo/todo-filters/todo-filters';
 import { TodoStats } from '../todo/todo-stats/todo-stats';
 import { TodoForm } from '../todo/todo-form/todo-form';
 import { TodoList } from '../todo/todo-list/todo-list';
-import { TodoStore } from '../../../todo.store';
+import { TodoStore } from '../../../../store/todo.store';
 import type { Todo } from '../../../todo';
 import type { TodoFiltersState } from '../../../models/filters';
 import { TodoEditModal, type TodoEditPayload } from '../todo/todo-edit-modal/todo-edit-modal';

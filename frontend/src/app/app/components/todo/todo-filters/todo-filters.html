@@ -1,7 +1,6 @@
-<section class="space-y-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 p-3 shadow-sm backdrop-blur sm:space-y-4 sm:p-4">
+<section class="space-y-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 p-3 shadow-sm backdrop-blur sm:space-y-4 sm:p-4 lg:min-w-94">
   <header>
-    <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400">Filters</p>
-    <h2 class="text-base font-semibold text-slate-900 dark:text-slate-100 sm:text-lg">Focus on what matters today</h2>
+    <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400 text-center">Filters</p>
   </header>
 
   <label class="flex flex-col gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">
@@ -23,7 +22,7 @@
   <div class="flex flex-wrap gap-1.5 sm:gap-2">
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="filters.status === 'all'"
       [class.dark:bg-slate-700]="filters.status === 'all'"
       [class.text-white]="filters.status === 'all'"
@@ -38,7 +37,7 @@
     </button>
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="filters.status === 'active'"
       [class.dark:bg-slate-700]="filters.status === 'active'"
       [class.text-white]="filters.status === 'active'"
@@ -53,7 +52,7 @@
     </button>
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="filters.status === 'completed'"
       [class.dark:bg-slate-700]="filters.status === 'completed'"
       [class.text-white]="filters.status === 'completed'"
@@ -71,7 +70,7 @@
   <div class="flex flex-wrap gap-1.5 sm:gap-2">
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="(filters.isStarred ?? 'all') === 'all'"
       [class.dark:bg-slate-700]="(filters.isStarred ?? 'all') === 'all'"
       [class.text-white]="(filters.isStarred ?? 'all') === 'all'"
@@ -86,7 +85,7 @@
     </button>
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="(filters.isStarred ?? 'all') === 'starred'"
       [class.dark:bg-slate-700]="(filters.isStarred ?? 'all') === 'starred'"
       [class.text-white]="(filters.isStarred ?? 'all') === 'starred'"
@@ -101,7 +100,7 @@
     </button>
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="(filters.isStarred ?? 'all') === 'not-starred'"
       [class.dark:bg-slate-700]="(filters.isStarred ?? 'all') === 'not-starred'"
       [class.text-white]="(filters.isStarred ?? 'all') === 'not-starred'"
@@ -112,14 +111,14 @@
       [class.dark:text-slate-400]="(filters.isStarred ?? 'all') !== 'not-starred'"
       (click)="setStarred('not-starred')"
     >
-      Not Starred
+      No Stars
     </button>
   </div>
 
   <div class="flex flex-wrap gap-1.5 sm:gap-2">
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="(filters.priority ?? 'all') === 'all'"
       [class.dark:bg-slate-700]="(filters.priority ?? 'all') === 'all'"
       [class.text-white]="(filters.priority ?? 'all') === 'all'"
@@ -134,7 +133,7 @@
     </button>
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="(filters.priority ?? 'all') === 'HIGH'"
       [class.dark:bg-slate-700]="(filters.priority ?? 'all') === 'HIGH'"
       [class.text-white]="(filters.priority ?? 'all') === 'HIGH'"
@@ -149,7 +148,7 @@
     </button>
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="(filters.priority ?? 'all') === 'MEDIUM'"
       [class.dark:bg-slate-700]="(filters.priority ?? 'all') === 'MEDIUM'"
       [class.text-white]="(filters.priority ?? 'all') === 'MEDIUM'"
@@ -164,7 +163,7 @@
     </button>
     <button
       type="button"
-      class="rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+      class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
       [class.bg-slate-900]="(filters.priority ?? 'all') === 'LOW'"
       [class.dark:bg-slate-700]="(filters.priority ?? 'all') === 'LOW'"
       [class.text-white]="(filters.priority ?? 'all') === 'LOW'"
