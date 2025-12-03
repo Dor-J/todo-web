@@ -1,23 +1,51 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import '@testing-library/jest-dom/vitest';
+import { render, screen } from '@testing-library/angular';
 import { LoadingOverlay } from './loading-overlay';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('LoadingOverlay', () => {
-  let component: LoadingOverlay;
-  let fixture: ComponentFixture<LoadingOverlay>;
+  const setup = async (isLoading = false) => {
+    const { fixture } = await render(LoadingOverlay, {
+      componentInputs: {
+        isLoading,
+      },
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [LoadingOverlay]
-    })
-    .compileComponents();
+    return {
+      fixture,
+      component: fixture.componentInstance,
+    };
+  };
 
-    fixture = TestBed.createComponent(LoadingOverlay);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
+  describe('Input/Output', () => {
+    it('should bind to isLoading input', async () => {
+      const { component } = await setup(true);
+
+      expect(component.isLoading).toBe(true);
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('Template Rendering', () => {
+    it('should display overlay when visible', async () => {
+      await setup(true);
+
+      expect(screen.getByText(/syncing todos/i)).toBeInTheDocument();
+    });
+
+    it('should be hidden when not visible', async () => {
+      await setup(false);
+
+      const overlay = screen.queryByText(/syncing todos/i);
+      expect(overlay).not.toBeInTheDocument();
+    });
+
+    it('should show loading indicator', async () => {
+      await setup(true);
+
+      const loadingText = screen.getByText(/syncing todos/i);
+      expect(loadingText).toBeInTheDocument();
+    });
   });
 });
