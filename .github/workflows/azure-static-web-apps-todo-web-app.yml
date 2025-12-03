@@ -31,13 +31,17 @@ jobs:
         run: |
           bun install
           bun run build
+        env:
+            NG_APP_API_URL: ${{ secrets.NG_APP_API_URL }}
+            NG_APP_TODO_ENDPOINT: ${{ secrets.NG_APP_TODO_ENDPOINT }}
+            NG_APP_HEALTH_ENDPOINT: ${{ secrets.NG_APP_HEALTH_ENDPOINT }}
 
       - name: List build output (for debugging)
         working-directory: ./frontend
         run: |
           ls -la dist/ || echo "dist folder not found"
           find . -name "index.html" -type f || echo "index.html not found"
-          
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -46,7 +50,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
           app_location: './frontend'
-          output_location: 'dist'
+          output_location: 'dist/frontend/browser'
           api_location: ''
 
   close_pull_request_job:
