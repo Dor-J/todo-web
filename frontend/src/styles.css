@@ -1,3 +1,36 @@
+/* Livvic Font Faces */
+@font-face {
+  font-family: 'Livvic';
+  src: url('/assets/fonts/Livvic-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Livvic';
+  src: url('/assets/fonts/Livvic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Livvic';
+  src: url('/assets/fonts/Livvic-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Livvic';
+  src: url('/assets/fonts/Livvic-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Global Tailwind entry point */
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
@@ -36,7 +69,7 @@
   }
 
   body {
-    font-family: 'Inter', 'Nunito Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Livvic', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     background: radial-gradient(circle at top, rgba(93, 97, 255, 0.08), transparent 45%),
       linear-gradient(120deg, #eef5ff, #fdfbff);
     min-height: 100vh;
