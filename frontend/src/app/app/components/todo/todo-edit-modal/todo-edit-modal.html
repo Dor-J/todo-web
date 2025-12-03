@@ -16,6 +16,9 @@
             @if (todo.updatedAt) {
               • Updated {{ todo.updatedAt | date: 'short' }}
             }
+            @if (todo.completedAt) {
+              • Completed {{ todo.completedAt | date: 'short' }}
+            }
           </p>
         </div>
         <button
