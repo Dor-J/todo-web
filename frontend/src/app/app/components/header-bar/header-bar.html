@@ -1,17 +1,17 @@
-<header class="bg-slate-950 dark:bg-slate-900 text-white shadow-lg shadow-slate-950/20 dark:shadow-slate-900/20 sticky top-0 z-50 opacity-85">
-  <div class="mx-auto flex h-20 max-w-5xl items-center justify-between px-5 sm:px-8">
+<header class="sticky top-0 z-50 text-white shadow-lg bg-slate-950 dark:bg-slate-900 shadow-slate-950/20 dark:shadow-slate-900/20 opacity-85">
+  <div class="flex justify-between items-center px-5 mx-auto max-w-5xl h-20 sm:px-8">
     <div>
       <p class="text-xs uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Taskboard</p>
       <h1 class="text-xl font-semibold">ToDoDemo</h1>
     </div>
 
     <!-- Desktop Action Buttons -->
-    <div class="hidden md:flex items-center gap-3">
+    <div class="hidden gap-3 items-center md:flex">
       <app-health-indicator></app-health-indicator>
       <button
         type="button"
         (click)="toggleTheme()"
-        class="rounded-full border border-white/30 dark:border-white/20 px-4 py-2 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+        class="px-4 py-2 text-sm font-medium rounded-full border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
         [attr.aria-label]="themeService.theme() ? 'Switch to light mode' : 'Switch to dark mode'"
         [title]="themeService.theme() ? 'Switch to light mode' : 'Switch to dark mode'"
       >
@@ -24,14 +24,14 @@
       <button
         type="button"
         (click)="refreshTodos()"
-        class="rounded-full border border-white/30 dark:border-white/20 px-4 py-2 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+        class="px-4 py-2 text-sm font-medium rounded-full border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
       >
         Refresh
       </button>
       <button
         type="button"
         (click)="focusTodoForm()"
-        class="rounded-full border border-white/30 dark:border-white/20 px-4 py-2 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+        class="px-4 py-2 text-sm font-medium rounded-full border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
       >
         New Todo
       </button>
@@ -41,22 +41,22 @@
     <button
       type="button"
       (click)="toggleMenu()"
-      class="md:hidden flex flex-col justify-center items-center w-11 h-11 rounded-full border border-white/30 dark:border-white/20 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+      class="flex flex-col justify-center items-center w-11 h-11 rounded-full border transition md:hidden border-white/30 dark:border-white/20 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
       [attr.aria-expanded]="menuOpen()"
       aria-label="Toggle menu"
       aria-controls="mobile-menu"
     >
       <span
-        class="block w-5 h-0.5 bg-white/80 dark:bg-white/90 transition-all duration-300"
+        class="block w-5 h-0.5 transition-all duration-300 bg-white/80 dark:bg-white/90"
         [class.rotate-45]="menuOpen()"
         [class.translate-y-1.5]="menuOpen()"
       ></span>
       <span
-        class="block w-5 h-0.5 bg-white/80 dark:bg-white/90 mt-1.5 transition-all duration-300"
+        class="block mt-1.5 w-5 h-0.5 transition-all duration-300 bg-white/80 dark:bg-white/90"
         [class.opacity-0]="menuOpen()"
       ></span>
       <span
-        class="block w-5 h-0.5 bg-white/80 dark:bg-white/90 mt-1.5 transition-all duration-300"
+        class="block mt-1.5 w-5 h-0.5 transition-all duration-300 bg-white/80 dark:bg-white/90"
         [class.-rotate-45]="menuOpen()"
         [class.-translate-y-1.5]="menuOpen()"
       ></span>
@@ -72,7 +72,7 @@
     >
       <!-- Backdrop -->
       <div
-        class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+        class="absolute inset-0 backdrop-blur-sm transition-opacity duration-300 bg-black/50"
         [class.opacity-100]="menuOpen()"
         [class.opacity-0]="!menuOpen()"
       ></div>
@@ -90,12 +90,12 @@
       >
         <div class="flex flex-col h-full">
           <!-- Menu Header -->
-          <div class="flex items-center justify-between p-6 border-b border-white/10">
+          <div class="flex justify-between items-center p-6 border-b border-white/10">
             <h2 id="mobile-menu-title" class="text-lg font-semibold">Menu</h2>
             <button
               type="button"
               (click)="closeMenu()"
-              class="w-10 h-10 flex items-center justify-center rounded-full border border-white/30 dark:border-white/20 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+              class="flex justify-center items-center w-10 h-10 rounded-full border transition border-white/30 dark:border-white/20 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
               aria-label="Close menu"
             >
               <svg
@@ -116,9 +116,9 @@
           </div>
 
           <!-- Menu Content -->
-          <nav class="flex-1 overflow-y-auto p-6 space-y-4">
+          <nav class="overflow-y-auto flex-1 p-6 space-y-4">
             <!-- Health Indicator -->
-            <div class="flex items-center justify-between py-3 border-b border-white/10">
+            <div class="flex justify-between items-center py-3 border-b border-white/10">
               <span class="text-sm text-slate-400 dark:text-slate-500">DB Status</span>
               <app-health-indicator></app-health-indicator>
             </div>
@@ -127,7 +127,7 @@
             <button
               type="button"
               (click)="handleThemeToggle()"
-              class="w-full flex items-center justify-between rounded-lg border border-white/30 dark:border-white/20 px-4 py-3 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+              class="flex justify-between items-center px-4 py-3 w-full text-sm font-medium rounded-lg border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
               [attr.aria-label]="themeService.theme() ? 'Switch to light mode' : 'Switch to dark mode'"
             >
               <span>Theme</span>
@@ -144,7 +144,7 @@
             <button
               type="button"
               (click)="handleRefresh()"
-              class="w-full flex items-center justify-center rounded-lg border border-white/30 dark:border-white/20 px-4 py-3 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+              class="flex justify-center items-center px-4 py-3 w-full text-sm font-medium rounded-lg border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
             >
               Refresh
             </button>
@@ -153,7 +153,7 @@
             <button
               type="button"
               (click)="handleFocusTodoForm()"
-              class="w-full flex items-center justify-center rounded-lg border border-white/30 dark:border-white/20 px-4 py-3 text-sm font-medium text-white/80 dark:text-white/90 transition hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
+              class="flex justify-center items-center px-4 py-3 w-full text-sm font-medium rounded-lg border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
             >
               New Todo
             </button>
