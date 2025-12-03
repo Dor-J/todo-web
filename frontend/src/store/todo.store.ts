@@ -15,16 +15,16 @@ export class TodoStore {
   }
 
   private readonly todos = signal<Todo[]>([]);
-  readonly filters = signal<TodoFiltersState>({ query: '', status: 'all', isStarred: 'all', priority: 'all' });
+  readonly filters = signal<TodoFiltersState>({ query: '', status: 'all', isStarred: 'all', priority: 'all', sortBy: 'updatedAt' });
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly toast = signal<string | null>(null);
   readonly pendingAction = signal<PendingAction>(null);
 
   readonly filteredTodos = computed(() => {
-    const { query, status, isStarred, priority } = this.filters();
+    const { query, status, isStarred, priority, sortBy } = this.filters();
     const q = query.trim().toLowerCase();
-    return this.todos().filter((todo) => {
+    const filtered = this.todos().filter((todo) => {
       const matchesQuery =
         !q ||
         todo.title.toLowerCase().includes(q) ||
@@ -40,6 +40,35 @@ export class TodoStore {
       const matchesPriority =
         !priority || priority === 'all' || (todo.priority?.toUpperCase() === priority);
       return matchesQuery && matchesStatus && matchesStarred && matchesPriority;
+    });
+
+    const sortOption = sortBy ?? 'updatedAt';
+    return [...filtered].sort((a, b) => {
+      if (sortOption === 'priority') {
+        const priorityWeight = (p?: string): number => {
+          if (!p) return 1; // MEDIUM weight for missing priority
+          const upper = p.toUpperCase();
+          if (upper === 'HIGH') return 3;
+          if (upper === 'MEDIUM') return 2;
+          if (upper === 'LOW') return 1;
+          return 1;
+        };
+        const priorityDiff = priorityWeight(b.priority) - priorityWeight(a.priority);
+        if (priorityDiff !== 0) return priorityDiff;
+        // Tiebreaker: sort by updatedAt descending
+        const aDate = a.updatedAt ? new Date(a.updatedAt).getTime() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
+        const bDate = b.updatedAt ? new Date(b.updatedAt).getTime() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
+        return bDate - aDate;
+      } else if (sortOption === 'createdAt') {
+        const aDate = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const bDate = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return bDate - aDate;
+      } else {
+        // updatedAt (default)
+        const aDate = a.updatedAt ? new Date(a.updatedAt).getTime() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
+        const bDate = b.updatedAt ? new Date(b.updatedAt).getTime() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
+        return bDate - aDate;
+      }
     });
   });
 
