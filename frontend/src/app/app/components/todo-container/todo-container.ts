@@ -8,7 +8,7 @@ import { TodoForm } from '../todo/todo-form/todo-form';
 import { TodoList } from '../todo/todo-list/todo-list';
 import { TodoStore } from '../../../../store/todo.store';
 import type { Todo } from '../../../todo';
-import type { TodoFiltersState } from '../../../models/filters';
+import type { TodoFiltersState, TodoSortOption } from '../../../models/filters';
 import { TodoEditModal, type TodoEditPayload } from '../todo/todo-edit-modal/todo-edit-modal';
 
 @Component({
@@ -79,6 +79,11 @@ export class TodoContainer implements OnInit {
 
   handleFiltersChange(filters: TodoFiltersState): void {
     this.store.setFilters(filters);
+  }
+
+  handleSortByChange(sortBy: TodoSortOption): void {
+    const currentFilters = this.filters();
+    this.store.setFilters({ ...currentFilters, sortBy });
   }
 
   dismissToast(): void {
