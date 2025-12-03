@@ -1,10 +1,11 @@
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using backend.Converters;
 
 namespace backend.Models;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(JsonStringEnumConverter))]
+[System.Text.Json.Serialization.JsonConverter(typeof(PriorityJsonConverter))]
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
 public enum Priority
 {
