@@ -4,10 +4,16 @@ on:
   push:
     branches:
       - main
+    paths:
+      - frontend/**
+      - .github/workflows/azure-static-web-apps-gray-coast-03ebba203.yml
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+    paths:
+      - frontend/**
+      - .github/workflows/azure-static-web-apps-gray-coast-03ebba203.yml
   workflow_dispatch:
 
 jobs:
@@ -20,31 +26,6 @@ jobs:
         with:
           submodules: true
           lfs: false
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: Build Application
-        working-directory: ./frontend
-        run: |
-          bun install
-          bun run build
-        env:
-          NG_APP_API_URL: ${{ secrets.NG_APP_API_URL }}
-          NG_APP_TODO_ENDPOINT: ${{ secrets.NG_APP_TODO_ENDPOINT }}
-          NG_APP_HEALTH_ENDPOINT: ${{ secrets.NG_APP_HEALTH_ENDPOINT }}
-
-      - name: List build output (for debugging)
-        run: |
-          echo "Checking build output structure..."
-          ls -la frontend/dist/ || echo "frontend/dist folder not found"
-          ls -la frontend/dist/frontend/ || echo "frontend/dist/frontend folder not found"
-          ls -la frontend/dist/frontend/browser/ || echo "frontend/dist/frontend/browser folder not found"
-          find frontend/dist -name "index.html" -type f || echo "index.html not found in dist"
-          echo "Disk usage for frontend/dist:"
-          du -ah frontend/dist || true
 
       - name: Print GitHub context (for debugging)
         run: |
@@ -68,11 +49,11 @@ jobs:
 
       - name: Show Azure deploy inputs
         run: |
-          echo "app_location: frontend/dist/frontend/browser"
+          echo "app_location: frontend"
           echo "api_location: (none)"
-          echo "output_location: (none)"
-          echo "skip_app_build: true"
-          echo "skip_api_build: true"
+          echo "output_location: dist/frontend/browser"
+          echo "skip_app_build: (default false)"
+          echo "skip_api_build: (default false)"
           echo "routes_location: ${INPUT_ROUTES_LOCATION:-<not set>}"
           echo "config_file_location: ${INPUT_CONFIG_FILE_LOCATION:-<not set>}"
 
@@ -83,9 +64,13 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_COAST_03EBBA203 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
-          app_location: 'frontend/dist/frontend/browser'
-          skip_app_build: true
-          skip_api_build: true
+          app_location: 'frontend'
+          output_location: 'dist/frontend/browser'
+        env:
+          NG_APP_API_URL: ${{ secrets.NG_APP_API_URL }}
+          NG_APP_TODO_ENDPOINT: ${{ secrets.NG_APP_TODO_ENDPOINT }}
+          NG_APP_HEALTH_ENDPOINT: ${{ secrets.NG_APP_HEALTH_ENDPOINT }}
+          NODE_ENV: production
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
