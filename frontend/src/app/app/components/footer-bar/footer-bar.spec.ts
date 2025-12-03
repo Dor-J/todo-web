@@ -1,23 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import '@testing-library/jest-dom/vitest';
+import { render, screen } from '@testing-library/angular';
 import { FooterBar } from './footer-bar';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('FooterBar', () => {
-  let component: FooterBar;
-  let fixture: ComponentFixture<FooterBar>;
+  const setup = async () => {
+    const { fixture } = await render(FooterBar, {
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [FooterBar]
-    })
-    .compileComponents();
+    return {
+      fixture,
+      component: fixture.componentInstance,
+    };
+  };
 
-    fixture = TestBed.createComponent(FooterBar);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
+  describe('Template Rendering', () => {
+    it('should render footer content', async () => {
+      await setup();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+      // Footer should be rendered (exact content depends on template)
+      expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+    });
+
+    it('should display current year', async () => {
+      const { component } = await setup();
+
+      const currentYear = new Date().getFullYear();
+      expect(component.year).toBe(currentYear);
+    });
   });
 });
