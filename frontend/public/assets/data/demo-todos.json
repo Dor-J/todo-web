@@ -1,0 +1,146 @@
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440001",
+    "title": "Set up Angular frontend with Tailwind CSS",
+    "description": "Initialize Angular 21 project with standalone components, configure Tailwind CSS for modern styling, and set up project structure",
+    "isCompleted": true,
+    "createdAt": "2024-11-15T08:00:00Z",
+    "updatedAt": "2024-11-15T14:30:00Z",
+    "completedAt": "2024-11-15T14:30:00Z",
+    "priority": "HIGH",
+    "starred": true
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440002",
+    "title": "Implement .NET backend with REST API",
+    "description": "Create ASP.NET Core minimal API with CRUD endpoints for todos, configure CORS, and set up Swagger documentation",
+    "isCompleted": true,
+    "createdAt": "2024-11-15T09:00:00Z",
+    "updatedAt": "2024-11-16T10:15:00Z",
+    "completedAt": "2024-11-16T10:15:00Z",
+    "priority": "HIGH",
+    "starred": true
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440003",
+    "title": "Connect backend to Azure Cosmos DB",
+    "description": "Set up Cosmos DB repository pattern, implement automated database/container provisioning, and configure connection strings",
+    "isCompleted": true,
+    "createdAt": "2024-11-16T08:30:00Z",
+    "updatedAt": "2024-11-16T16:45:00Z",
+    "completedAt": "2024-11-16T16:45:00Z",
+    "priority": "HIGH",
+    "starred": false
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440004",
+    "title": "Build todo list UI components",
+    "description": "Create reusable Angular components: todo list, todo item, todo form, filters, and stats display with responsive design",
+    "isCompleted": true,
+    "createdAt": "2024-11-17T09:00:00Z",
+    "updatedAt": "2024-11-18T11:20:00Z",
+    "completedAt": "2024-11-18T11:20:00Z",
+    "priority": "MEDIUM",
+    "starred": false
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440005",
+    "title": "Implement state management with Angular signals",
+    "description": "Create TodoStore service using Angular signals for reactive state management, computed values for filtering and statistics",
+    "isCompleted": true,
+    "createdAt": "2024-11-18T10:00:00Z",
+    "updatedAt": "2024-11-19T09:30:00Z",
+    "completedAt": "2024-11-19T09:30:00Z",
+    "priority": "MEDIUM",
+    "starred": true
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440006",
+    "title": "Add todo filtering and search functionality",
+    "description": "Implement filters for status (all/active/completed), priority, starred items, and search by title/description",
+    "isCompleted": true,
+    "createdAt": "2024-11-19T08:00:00Z",
+    "updatedAt": "2024-11-19T15:00:00Z",
+    "completedAt": "2024-11-19T15:00:00Z",
+    "priority": "MEDIUM",
+    "starred": false
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440007",
+    "title": "Implement priority and starred features",
+    "description": "Add priority levels (HIGH, MEDIUM, LOW) and starred functionality to todos with visual indicators in the UI",
+    "isCompleted": true,
+    "createdAt": "2024-11-20T09:00:00Z",
+    "updatedAt": "2024-11-20T13:45:00Z",
+    "completedAt": "2024-11-20T13:45:00Z",
+    "priority": "LOW",
+    "starred": false
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440008",
+    "title": "Add error handling and loading states",
+    "description": "Implement error banners, loading overlays, toast notifications, and proper error handling throughout the application",
+    "isCompleted": true,
+    "createdAt": "2024-11-20T10:30:00Z",
+    "updatedAt": "2024-11-21T10:00:00Z",
+    "completedAt": "2024-11-21T10:00:00Z",
+    "priority": "MEDIUM",
+    "starred": false
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440009",
+    "title": "Configure environment variables and build setup",
+    "description": "Set up @ngx-env/builder for frontend environment variables, configure build scripts for different environments",
+    "isCompleted": true,
+    "createdAt": "2024-11-21T08:00:00Z",
+    "updatedAt": "2024-11-21T12:30:00Z",
+    "completedAt": "2024-11-21T12:30:00Z",
+    "priority": "LOW",
+    "starred": false
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440010",
+    "title": "Write comprehensive README documentation",
+    "description": "Document setup instructions, environment variables, API endpoints, and how to run both frontend and backend locally",
+    "isCompleted": true,
+    "createdAt": "2024-11-21T13:00:00Z",
+    "updatedAt": "2024-11-22T09:15:00Z",
+    "completedAt": "2024-11-22T09:15:00Z",
+    "priority": "MEDIUM",
+    "starred": false
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440011",
+    "title": "Deploy backend to Azure App Service",
+    "description": "Configure Azure App Service deployment, set up production environment variables, and verify Cosmos DB connection",
+    "isCompleted": true,
+    "createdAt": "2024-11-22T10:00:00Z",
+    "updatedAt": "2024-11-23T14:20:00Z",
+    "completedAt": "2024-11-23T14:20:00Z",
+    "priority": "HIGH",
+    "starred": true
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440012",
+    "title": "Add user management system",
+    "description": "Implement user registration, login, and profile management. Create user model, authentication endpoints, and user-specific todo filtering",
+    "isCompleted": false,
+    "createdAt": "2024-11-24T08:00:00Z",
+    "updatedAt": null,
+    "completedAt": null,
+    "priority": "HIGH",
+    "starred": true
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440013",
+    "title": "Implement authentication and authorization",
+    "description": "Add JWT-based authentication, secure API endpoints with authorization policies, and implement protected routes in frontend",
+    "isCompleted": false,
+    "createdAt": "2024-11-24T09:30:00Z",
+    "updatedAt": null,
+    "completedAt": null,
+    "priority": "HIGH",
+    "starred": true
+  }
+]
+
