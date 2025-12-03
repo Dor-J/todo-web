@@ -5,6 +5,7 @@
       [checked]="todo.isCompleted"
       (change)="toggle.emit()"
       class="w-5 h-5 rounded-full border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 focus:ring-slate-400 dark:focus:ring-slate-600"
+      [attr.aria-label]="'Mark \'' + todo.title + '\' as ' + (todo.isCompleted ? 'incomplete' : 'complete')"
     />
   </label>
 
@@ -71,12 +72,13 @@
         </svg>
       }
     </button>
-    <button class="px-2.5 py-1.5 text-xs rounded-full border transition border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600 sm:px-3 sm:py-1" (click)="edit.emit()">
+    <button class="px-2.5 py-1.5 text-xs rounded-full border transition border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600 sm:px-3 sm:py-1" (click)="edit.emit()" [attr.aria-label]="'Edit \'' + todo.title + '\''">
       Edit
     </button>
     <button
       class="px-2.5 py-1.5 text-xs text-rose-500 rounded-full border transition border-slate-200 dark:border-slate-700 dark:text-rose-400 hover:text-rose-600 dark:hover:text-rose-300 hover:border-rose-300 dark:hover:border-rose-600 sm:px-3 sm:py-1"
       (click)="delete.emit()"
+      [attr.aria-label]="'Delete \'' + todo.title + '\''"
     >
       Delete
     </button>
