@@ -64,12 +64,7 @@ jobs:
             exit 1
           fi
           echo "Static Web Apps deployment token detected (value is masked)."
-          python - <<'PY'
-            import hashlib, os
-            token = os.environ["SWA_TOKEN"]
-            print(f"Token length: {len(token)}")
-            print(f"Token SHA256 fingerprint: {hashlib.sha256(token.encode()).hexdigest()}")
-            PY
+          python -c "import hashlib, os; token=os.environ['SWA_TOKEN']; print(f'Token length: {len(token)}'); print(f'Token SHA256 fingerprint: {hashlib.sha256(token.encode()).hexdigest()}')"
 
       - name: Show Azure deploy inputs
         run: |
