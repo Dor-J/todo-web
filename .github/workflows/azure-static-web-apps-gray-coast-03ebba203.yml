@@ -44,6 +44,25 @@ jobs:
           ls -la frontend/dist/frontend/browser/ || echo "frontend/dist/frontend/browser folder not found"
           find frontend/dist -name "index.html" -type f || echo "index.html not found in dist"
 
+      - name: Print GitHub context (for debugging)
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Workflow: $GITHUB_WORKFLOW"
+          echo "Run ID: $GITHUB_RUN_ID"
+          echo "Ref: $GITHUB_REF"
+          echo "SHA: $GITHUB_SHA"
+          echo "Actor: $GITHUB_ACTOR"
+
+      - name: Validate Static Web Apps token presence
+        env:
+          SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_COAST_03EBBA203 }}
+        run: |
+          if [ -z "$SWA_TOKEN" ]; then
+            echo "::error::AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_COAST_03EBBA203 is empty or not configured."
+            exit 1
+          fi
+          echo "Static Web Apps deployment token detected (value is masked)."
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
