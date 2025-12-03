@@ -79,8 +79,19 @@ try
   builder.Services.AddSingleton<ITodoRepository, CosmosTodoRepository>();
 
   // Controllers / Health checks
-  builder.Services.AddControllers();
+  builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+      options.JsonSerializerOptions.Converters.Add(new backend.Converters.PriorityJsonConverter());
+    });
+
   builder.Services.AddHealthChecks();
+
+  // Configure HTTP JSON options for minimal APIs
+  builder.Services.ConfigureHttpJsonOptions(options =>
+  {
+    options.SerializerOptions.Converters.Add(new backend.Converters.PriorityJsonConverter());
+  });
 
   // Swagger / OpenAPI
   builder.Services.AddEndpointsApiExplorer();
