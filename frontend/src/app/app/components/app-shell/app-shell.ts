@@ -4,7 +4,7 @@ import { FooterBar } from '../footer-bar/footer-bar';
 import { Toast } from '../toast/toast';
 import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 import { RouterOutlet } from '@angular/router';
-import { TodoStore } from '../../../todo.store';
+import { TodoStore } from '../../../../store/todo.store';
 
 @Component({
   selector: 'app-app-shell',

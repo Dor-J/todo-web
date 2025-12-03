@@ -1,7 +1,7 @@
 import { Component, inject, signal, HostListener, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ThemeService } from '../../../services/theme.service';
-import { TodoStore } from '../../../todo.store';
+import { TodoStore } from '../../../../store/todo.store';
 import { TodoFormService } from '../../../services/todo-form.service';
 import { HealthIndicator } from '../health-indicator/health-indicator';
 
