@@ -1,12 +1,55 @@
 <section class="overflow-x-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 shadow-xl shadow-slate-900/5 dark:shadow-slate-950/20">
-  <header class="flex flex-col gap-2 border-b border-slate-100 dark:border-slate-800 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:px-6 sm:py-4">
+  <header class="flex flex-col gap-2 border-b border-slate-100 dark:border-slate-800 px-4 py-3 md:flex-row md:items-center md:justify-between md:gap-0 md:px-6 md:py-4">
     <div>
       <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Today</p>
       <h2 class="text-lg font-semibold text-slate-950 dark:text-slate-50 sm:text-xl">My Todos</h2>
     </div>
-    <div class="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-      <span>Sort</span>
-      <button class="rounded-full border border-slate-200 dark:border-slate-700 px-2 py-1 text-xs text-slate-600 dark:text-slate-400 sm:px-3 sm:text-sm">Recently added</button>
+    <div class="flex flex-wrap gap-1.5 sm:gap-2">
+      <button
+        type="button"
+        class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+        [class.bg-slate-900]="(filters.sortBy ?? 'updatedAt') === 'updatedAt'"
+        [class.dark:bg-slate-700]="(filters.sortBy ?? 'updatedAt') === 'updatedAt'"
+        [class.text-white]="(filters.sortBy ?? 'updatedAt') === 'updatedAt'"
+        [class.border]="(filters.sortBy ?? 'updatedAt') !== 'updatedAt'"
+        [class.border-slate-200]="(filters.sortBy ?? 'updatedAt') !== 'updatedAt'"
+        [class.dark:border-slate-700]="(filters.sortBy ?? 'updatedAt') !== 'updatedAt'"
+        [class.text-slate-500]="(filters.sortBy ?? 'updatedAt') !== 'updatedAt'"
+        [class.dark:text-slate-400]="(filters.sortBy ?? 'updatedAt') !== 'updatedAt'"
+        (click)="setSortBy('updatedAt')"
+      >
+        Last Updated
+      </button>
+      <button
+        type="button"
+        class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+        [class.bg-slate-900]="(filters.sortBy ?? 'updatedAt') === 'createdAt'"
+        [class.dark:bg-slate-700]="(filters.sortBy ?? 'updatedAt') === 'createdAt'"
+        [class.text-white]="(filters.sortBy ?? 'updatedAt') === 'createdAt'"
+        [class.border]="(filters.sortBy ?? 'updatedAt') !== 'createdAt'"
+        [class.border-slate-200]="(filters.sortBy ?? 'updatedAt') !== 'createdAt'"
+        [class.dark:border-slate-700]="(filters.sortBy ?? 'updatedAt') !== 'createdAt'"
+        [class.text-slate-500]="(filters.sortBy ?? 'updatedAt') !== 'createdAt'"
+        [class.dark:text-slate-400]="(filters.sortBy ?? 'updatedAt') !== 'createdAt'"
+        (click)="setSortBy('createdAt')"
+      >
+        Recently Added
+      </button>
+      <button
+        type="button"
+        class="rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] transition"
+        [class.bg-slate-900]="(filters.sortBy ?? 'updatedAt') === 'priority'"
+        [class.dark:bg-slate-700]="(filters.sortBy ?? 'updatedAt') === 'priority'"
+        [class.text-white]="(filters.sortBy ?? 'updatedAt') === 'priority'"
+        [class.border]="(filters.sortBy ?? 'updatedAt') !== 'priority'"
+        [class.border-slate-200]="(filters.sortBy ?? 'updatedAt') !== 'priority'"
+        [class.dark:border-slate-700]="(filters.sortBy ?? 'updatedAt') !== 'priority'"
+        [class.text-slate-500]="(filters.sortBy ?? 'updatedAt') !== 'priority'"
+        [class.dark:text-slate-400]="(filters.sortBy ?? 'updatedAt') !== 'priority'"
+        (click)="setSortBy('priority')"
+      >
+        Priority
+      </button>
     </div>
   </header>
 
