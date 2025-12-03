@@ -32,9 +32,9 @@ jobs:
           bun install
           bun run build
         env:
-            NG_APP_API_URL: ${{ secrets.NG_APP_API_URL }}
-            NG_APP_TODO_ENDPOINT: ${{ secrets.NG_APP_TODO_ENDPOINT }}
-            NG_APP_HEALTH_ENDPOINT: ${{ secrets.NG_APP_HEALTH_ENDPOINT }}
+          NG_APP_API_URL: ${{ secrets.NG_APP_API_URL }}
+          NG_APP_TODO_ENDPOINT: ${{ secrets.NG_APP_TODO_ENDPOINT }}
+          NG_APP_HEALTH_ENDPOINT: ${{ secrets.NG_APP_HEALTH_ENDPOINT }}
 
       - name: List build output (for debugging)
         run: |
@@ -43,6 +43,8 @@ jobs:
           ls -la frontend/dist/frontend/ || echo "frontend/dist/frontend folder not found"
           ls -la frontend/dist/frontend/browser/ || echo "frontend/dist/frontend/browser folder not found"
           find frontend/dist -name "index.html" -type f || echo "index.html not found in dist"
+          echo "Disk usage for frontend/dist:"
+          du -ah frontend/dist || true
 
       - name: Print GitHub context (for debugging)
         run: |
@@ -62,6 +64,22 @@ jobs:
             exit 1
           fi
           echo "Static Web Apps deployment token detected (value is masked)."
+          python - <<'PY'
+            import hashlib, os
+            token = os.environ["SWA_TOKEN"]
+            print(f"Token length: {len(token)}")
+            print(f"Token SHA256 fingerprint: {hashlib.sha256(token.encode()).hexdigest()}")
+            PY
+
+      - name: Show Azure deploy inputs
+        run: |
+          echo "app_location: frontend/dist/frontend/browser"
+          echo "api_location: (none)"
+          echo "output_location: (none)"
+          echo "skip_app_build: true"
+          echo "skip_api_build: true"
+          echo "routes_location: ${INPUT_ROUTES_LOCATION:-<not set>}"
+          echo "config_file_location: ${INPUT_CONFIG_FILE_LOCATION:-<not set>}"
 
       - name: Build And Deploy
         id: builddeploy
@@ -84,4 +102,3 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_COAST_03EBBA203 }}
           action: 'close'
-
