@@ -48,7 +48,7 @@ export class TodoEditModal implements OnChanges {
           title: this.todo.title,
           description: this.todo.description ?? '',
           isCompleted: this.todo.isCompleted,
-          priority: this.todo.priority,
+          priority: (this.todo.priority?.toUpperCase() as 'HIGH' | 'MEDIUM' | 'LOW') ?? 'MEDIUM',
           starred: this.todo.starred,
         });
       } else {
