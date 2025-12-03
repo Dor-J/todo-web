@@ -30,7 +30,7 @@ export class TodoService {
 
   constructor(private http: HttpClient) {
     // Values injected at build time by @ngx-env/builder
-    const baseUrl = import.meta.env.NG_APP_API_URL ?? 'http://localhost:3000/api';
+    const baseUrl = import.meta.env.NG_APP_API_URL ?? 'http://localhost:5013';
     const endpoint = import.meta.env.NG_APP_TODO_ENDPOINT ?? '/todos';
 
     const normalizedBase = baseUrl.replace(/\/+$/, '');
