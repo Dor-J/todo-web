@@ -10,7 +10,7 @@ import { TodoFiltersState, TodoFilterStatus, TodoFilterStarred, TodoFilterPriori
   templateUrl: './todo-filters.html',
 })
 export class TodoFilters implements OnDestroy {
-  @Input() filters: TodoFiltersState = { query: '', status: 'all', isStarred: 'all', priority: 'all' };
+  @Input() filters: TodoFiltersState = { query: '', status: 'all', isStarred: 'all', priority: 'all', sortBy: 'updatedAt' };
   @Output() filtersChange = new EventEmitter<TodoFiltersState>();
 
   private readonly querySubject = new Subject<string>();
