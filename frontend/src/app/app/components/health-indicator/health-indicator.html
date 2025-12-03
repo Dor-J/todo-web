@@ -1,6 +1,9 @@
 <div 
   class="flex gap-2 items-center px-4 py-2 text-sm font-medium rounded-full border transition border-white/30 dark:border-white/20 text-white/80 dark:text-white/90 hover:border-white hover:text-white dark:hover:border-white/40 dark:hover:text-white"
   [attr.title]="'Database: ' + getStatusText()"
+  role="status"
+  aria-live="polite"
+  [attr.aria-label]="'Database status: ' + getStatusText()"
 >
   <div class="relative">
     <div
