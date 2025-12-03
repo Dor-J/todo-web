@@ -17,6 +17,8 @@
         [class.text-slate-500]="(filters.sortBy ?? 'updatedAt') !== 'updatedAt'"
         [class.dark:text-slate-400]="(filters.sortBy ?? 'updatedAt') !== 'updatedAt'"
         (click)="setSortBy('updatedAt')"
+        aria-label="Sort by last updated"
+        [attr.aria-pressed]="(filters.sortBy ?? 'updatedAt') === 'updatedAt'"
       >
         Last Updated
       </button>
@@ -32,6 +34,8 @@
         [class.text-slate-500]="(filters.sortBy ?? 'updatedAt') !== 'createdAt'"
         [class.dark:text-slate-400]="(filters.sortBy ?? 'updatedAt') !== 'createdAt'"
         (click)="setSortBy('createdAt')"
+        aria-label="Sort by creation date"
+        [attr.aria-pressed]="(filters.sortBy ?? 'updatedAt') === 'createdAt'"
       >
         Recently Added
       </button>
@@ -47,6 +51,8 @@
         [class.text-slate-500]="(filters.sortBy ?? 'updatedAt') !== 'priority'"
         [class.dark:text-slate-400]="(filters.sortBy ?? 'updatedAt') !== 'priority'"
         (click)="setSortBy('priority')"
+        aria-label="Sort by priority"
+        [attr.aria-pressed]="(filters.sortBy ?? 'updatedAt') === 'priority'"
       >
         Priority
       </button>
