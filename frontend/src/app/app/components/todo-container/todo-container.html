@@ -27,10 +27,12 @@
     <app-loading-overlay [isLoading]="loading()" />
     <app-todo-list
       [todos]="filteredTodos()"
+      [filters]="filters()"
       (toggleTodo)="handleToggle($event)"
       (editTodo)="handleEdit($event)"
       (deleteTodo)="handleDelete($event)"
       (toggleStarred)="handleToggleStarred($event)"
+      (sortByChange)="handleSortByChange($event)"
     />
   </div>
 
