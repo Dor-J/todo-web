@@ -1,12 +1,14 @@
 import { render, screen, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { TodoContainer } from './todo-container';
-import { createMockTodoStore, createMockTodo } from '../test-utils';
+import { createMockTodoStore, createMockTodo, createMockUiStore } from '../test-utils';
 import { TodoStore } from '../../../../store/todo.store';
+import { UiStore } from '../../../../store/general.store';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import '@testing-library/jest-dom/vitest';
 import { vi } from 'vitest';
+import { signal } from '@angular/core';
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -35,19 +37,18 @@ describe('TodoContainer', () => {
     if (initialState?.todos) {
       mockStore.setTodos(initialState.todos);
     }
-    if (initialState?.loading !== undefined) {
-      mockStore.setLoading(initialState.loading);
-    }
-    if (initialState?.error !== undefined) {
-      mockStore.setError(initialState.error);
-    }
-    if (initialState?.toast !== undefined) {
-      mockStore.setToast(initialState.toast);
-    }
+
+    // Create mock UiStore using the helper function
+    const mockUiStore = createMockUiStore({
+      loading: initialState?.loading,
+      error: initialState?.error,
+      toast: initialState?.toast,
+    });
 
     const { fixture } = await render(TodoContainer, {
       providers: [
         { provide: TodoStore, useValue: mockStore.store },
+        { provide: UiStore, useValue: mockUiStore },
         provideHttpClient(),
         provideHttpClientTesting(),
       ],
@@ -58,6 +59,33 @@ describe('TodoContainer', () => {
       component: fixture.componentInstance,
       store: mockStore.store,
       storeHelpers: mockStore,
+      uiStore: mockUiStore,
+      uiStoreHelpers: {
+        setLoading: (loading: boolean) => {
+          if (mockUiStore.setLoading) {
+            mockUiStore.setLoading(loading);
+          }
+          if (mockUiStore.loading) {
+            mockUiStore.loading.set(loading);
+          }
+        },
+        setError: (error: string | null) => {
+          if (mockUiStore.setError) {
+            mockUiStore.setError(error);
+          }
+          if (mockUiStore.error) {
+            mockUiStore.error.set(error);
+          }
+        },
+        setToast: (toast: string | null) => {
+          if (mockUiStore.setToast) {
+            mockUiStore.setToast(toast);
+          }
+          if (mockUiStore.toast) {
+            mockUiStore.toast.set(toast);
+          }
+        },
+      },
     };
   };
 
@@ -144,25 +172,25 @@ describe('TodoContainer', () => {
     });
 
     it('should call clearToast when toast is dismissed', async () => {
-      const { store, storeHelpers, fixture } = await setup({ toast: 'Test message' });
-      storeHelpers.setToast('Test message');
+      const { uiStore, uiStoreHelpers, fixture } = await setup({ toast: 'Test message' });
+      uiStoreHelpers.setToast('Test message');
       fixture.detectChanges();
       await fixture.whenStable();
 
       // Verify clearToast method exists and can be called
-      expect(store.clearToast).toBeDefined();
-      expect(typeof store.clearToast).toBe('function');
+      expect(uiStore.clearToast).toBeDefined();
+      expect(typeof uiStore.clearToast).toBe('function');
       
       // Test that calling it works - use non-null assertion since we verified it exists
-      if (store.clearToast) {
-        store.clearToast();
-        expect(store.clearToast).toHaveBeenCalled();
+      if (uiStore.clearToast) {
+        uiStore.clearToast();
+        expect(uiStore.clearToast).toHaveBeenCalled();
       }
     });
 
     it('should call clearError when error is dismissed', async () => {
-      const { store, storeHelpers } = await setup({ error: 'Test error' });
-      storeHelpers.setError('Test error');
+      const { uiStore, uiStoreHelpers } = await setup({ error: 'Test error' });
+      uiStoreHelpers.setError('Test error');
 
       await waitFor(() => {
         expect(screen.getByText('Test error')).toBeInTheDocument();
@@ -171,7 +199,7 @@ describe('TodoContainer', () => {
       const dismissButton = screen.getByRole('button', { name: /dismiss/i });
       await userEvent.click(dismissButton);
 
-      expect(store.clearError).toHaveBeenCalled();
+      expect(uiStore.clearError).toHaveBeenCalled();
     });
   });
 
@@ -202,8 +230,8 @@ describe('TodoContainer', () => {
     });
 
     it('should read loading state from store', async () => {
-      const { storeHelpers } = await setup({ loading: true });
-      storeHelpers.setLoading(true);
+      const { uiStoreHelpers } = await setup({ loading: true });
+      uiStoreHelpers.setLoading(true);
 
       await waitFor(() => {
         expect(screen.getByText(/syncing todos/i)).toBeInTheDocument();
@@ -211,8 +239,8 @@ describe('TodoContainer', () => {
     });
 
     it('should read error state from store', async () => {
-      const { storeHelpers } = await setup({ error: 'Test error' });
-      storeHelpers.setError('Test error');
+      const { uiStoreHelpers } = await setup({ error: 'Test error' });
+      uiStoreHelpers.setError('Test error');
 
       await waitFor(() => {
         expect(screen.getByText('Test error')).toBeInTheDocument();
@@ -285,8 +313,8 @@ describe('TodoContainer', () => {
 
   describe('Template Rendering', () => {
     it('should show loading overlay when loading is true', async () => {
-      const { storeHelpers } = await setup({ loading: true });
-      storeHelpers.setLoading(true);
+      const { uiStoreHelpers } = await setup({ loading: true });
+      uiStoreHelpers.setLoading(true);
 
       await waitFor(() => {
         expect(screen.getByText(/syncing todos/i)).toBeInTheDocument();
@@ -294,8 +322,8 @@ describe('TodoContainer', () => {
     });
 
     it('should show error banner when error has value', async () => {
-      const { storeHelpers } = await setup({ error: 'Test error' });
-      storeHelpers.setError('Test error');
+      const { uiStoreHelpers } = await setup({ error: 'Test error' });
+      uiStoreHelpers.setError('Test error');
 
       await waitFor(() => {
         expect(screen.getByText('Test error')).toBeInTheDocument();
@@ -328,8 +356,8 @@ describe('TodoContainer', () => {
 
   describe('Error Handling', () => {
     it('should display error state', async () => {
-      const { storeHelpers } = await setup({ error: 'Network error' });
-      storeHelpers.setError('Network error');
+      const { uiStoreHelpers } = await setup({ error: 'Network error' });
+      uiStoreHelpers.setError('Network error');
 
       await waitFor(() => {
         expect(screen.getByText('Network error')).toBeInTheDocument();
@@ -337,8 +365,8 @@ describe('TodoContainer', () => {
     });
 
     it('should allow error dismissal', async () => {
-      const { store, storeHelpers } = await setup({ error: 'Test error' });
-      storeHelpers.setError('Test error');
+      const { uiStore, uiStoreHelpers } = await setup({ error: 'Test error' });
+      uiStoreHelpers.setError('Test error');
 
       await waitFor(() => {
         expect(screen.getByText('Test error')).toBeInTheDocument();
@@ -347,7 +375,7 @@ describe('TodoContainer', () => {
       const dismissButton = screen.getByRole('button', { name: /dismiss/i });
       await userEvent.click(dismissButton);
 
-      expect(store.clearError).toHaveBeenCalled();
+      expect(uiStore.clearError).toHaveBeenCalled();
     });
   });
 

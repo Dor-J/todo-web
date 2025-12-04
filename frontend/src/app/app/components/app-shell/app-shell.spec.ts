@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/angular';
 import { AppShell } from './app-shell';
-import { createMockTodoStore } from '../test-utils';
-import { TodoStore } from '../../../../store/todo.store';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { vi } from 'vitest';
+import { signal } from '@angular/core';
+import { UiStore } from '../../../../store/general.store';
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -24,11 +24,20 @@ Object.defineProperty(window, 'matchMedia', {
 
 describe('AppShell', () => {
   const setup = async () => {
-    const mockStore = createMockTodoStore();
+    const mockUiStore: Partial<UiStore> = {
+      loading: signal(false),
+      error: signal<string | null>(null),
+      toast: signal<string | null>(null),
+      clearToast: vi.fn(),
+      clearError: vi.fn(),
+      setLoading: vi.fn(),
+      setError: vi.fn(),
+      setToast: vi.fn(),
+    };
 
     const { fixture } = await render(AppShell, {
       providers: [
-        { provide: TodoStore, useValue: mockStore.store },
+        { provide: UiStore, useValue: mockUiStore },
         provideHttpClient(),
         provideHttpClientTesting(),
         provideRouter([]),
@@ -38,7 +47,7 @@ describe('AppShell', () => {
     return {
       fixture,
       component: fixture.componentInstance,
-      store: mockStore.store,
+      uiStore: mockUiStore,
     };
   };
 
@@ -57,8 +66,8 @@ describe('AppShell', () => {
     it('should integrate child components', async () => {
       const { component } = await setup();
 
-      // Component should have access to TodoStore
-      expect(component.todoStore).toBeDefined();
+      // Component should have access to UiStore
+      expect(component.uiStore).toBeDefined();
     });
   });
 });

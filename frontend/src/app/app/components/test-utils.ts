@@ -12,6 +12,8 @@ import type { UpdateTodoDto } from '../../models/todo-update.dto';
 import type { TodoFiltersState } from '../../models/filters';
 import { TodoStore } from '../../../store/todo.store';
 import { TodoFormService } from '../../services/todo-form.service';
+import { UiStore } from '../../../store/general.store';
+
 
 /**
  * Creates a mock Todo object for testing
@@ -102,27 +104,42 @@ export function createMockTodoFormService(): {
 }
 
 /**
+ * Creates a mock UiStore for testing
+ */
+export function createMockUiStore(initialState?: {
+  loading?: boolean;
+  error?: string | null;
+  toast?: string | null;
+}): Partial<UiStore> {
+  const loadingSignal = signal<boolean>(initialState?.loading ?? false);
+  const errorSignal = signal<string | null>(initialState?.error ?? null);
+  const toastSignal = signal<string | null>(initialState?.toast ?? null);
+
+  return {
+    loading: loadingSignal,
+    error: errorSignal,
+    toast: toastSignal,
+    clearToast: vi.fn(() => toastSignal.set(null)),
+    clearError: vi.fn(() => errorSignal.set(null)),
+    setLoading: vi.fn((loading: boolean) => loadingSignal.set(loading)),
+    setError: vi.fn((error: string | null) => errorSignal.set(error)),
+    setToast: vi.fn((toast: string | null) => toastSignal.set(toast)),
+  };
+}
+
+/**
  * Creates a mock TodoStore for testing
  */
 export function createMockTodoStore(initialState?: {
   todos?: Todo[];
   filters?: TodoFiltersState;
-  loading?: boolean;
-  error?: string | null;
-  toast?: string | null;
 }): {
   store: Partial<TodoStore>;
   setTodos: (todos: Todo[]) => void;
   setFilters: (filters: TodoFiltersState) => void;
-  setLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
-  setToast: (toast: string | null) => void;
 } {
   const todosSignal = signal<Todo[]>(initialState?.todos ?? []);
   const filtersSignal = signal<TodoFiltersState>(initialState?.filters ?? createMockFilters());
-  const loadingSignal = signal<boolean>(initialState?.loading ?? false);
-  const errorSignal = signal<string | null>(initialState?.error ?? null);
-  const toastSignal = signal<string | null>(initialState?.toast ?? null);
 
   const filteredTodos = computed(() => {
     const { query, status, isStarred, priority, sortBy } = filtersSignal();
@@ -203,15 +220,10 @@ export function createMockTodoStore(initialState?: {
   const updateTodoSpy = vi.fn();
   const deleteTodoSpy = vi.fn();
   const setFiltersSpy = vi.fn();
-  const clearToastSpy = vi.fn();
-  const clearErrorSpy = vi.fn();
 
   const store: Partial<TodoStore> = {
     filteredTodos,
     stats,
-    loading: loadingSignal,
-    error: errorSignal,
-    toast: toastSignal,
     filters: filtersSignal,
     loadTodos: loadTodosSpy,
     createTodo: createTodoSpy,
@@ -219,16 +231,11 @@ export function createMockTodoStore(initialState?: {
     updateTodo: updateTodoSpy,
     deleteTodo: deleteTodoSpy,
     setFilters: setFiltersSpy,
-    clearToast: clearToastSpy,
-    clearError: clearErrorSpy,
   };
 
   return {
     store,
     setTodos: (todos: Todo[]) => todosSignal.set(todos),
     setFilters: (filters: TodoFiltersState) => filtersSignal.set(filters),
-    setLoading: (loading: boolean) => loadingSignal.set(loading),
-    setError: (error: string | null) => errorSignal.set(error),
-    setToast: (toast: string | null) => toastSignal.set(toast),
   };
 }
