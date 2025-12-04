@@ -1,5 +1,10 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { TodoService, type CreateTodoDto, type UpdateTodoDto, type Todo } from '../app/todo';
+import {
+  TodoService,
+  type CreateTodoDto,
+  type UpdateTodoDto,
+  type Todo,
+} from '../app/services/todo.service';
 import { TodoFiltersState } from '../app/models/filters';
 
 type PendingAction = 'load' | 'create' | 'update' | 'delete' | null;
@@ -15,7 +20,13 @@ export class TodoStore {
   }
 
   private readonly todos = signal<Todo[]>([]);
-  readonly filters = signal<TodoFiltersState>({ query: '', status: 'all', isStarred: 'all', priority: 'all', sortBy: 'updatedAt' });
+  readonly filters = signal<TodoFiltersState>({
+    query: '',
+    status: 'all',
+    isStarred: 'all',
+    priority: 'all',
+    sortBy: 'updatedAt',
+  });
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly toast = signal<string | null>(null);
@@ -34,11 +45,12 @@ export class TodoStore {
         (status === 'active' && !todo.isCompleted) ||
         (status === 'completed' && todo.isCompleted);
       const matchesStarred =
-        !isStarred || isStarred === 'all' ||
+        !isStarred ||
+        isStarred === 'all' ||
         (isStarred === 'starred' && todo.starred === true) ||
         (isStarred === 'not-starred' && (todo.starred === false || todo.starred === undefined));
       const matchesPriority =
-        !priority || priority === 'all' || (todo.priority?.toUpperCase() === priority);
+        !priority || priority === 'all' || todo.priority?.toUpperCase() === priority;
       return matchesQuery && matchesStatus && matchesStarred && matchesPriority;
     });
 
@@ -56,8 +68,16 @@ export class TodoStore {
         const priorityDiff = priorityWeight(b.priority) - priorityWeight(a.priority);
         if (priorityDiff !== 0) return priorityDiff;
         // Tiebreaker: sort by updatedAt descending
-        const aDate = a.updatedAt ? new Date(a.updatedAt).getTime() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
-        const bDate = b.updatedAt ? new Date(b.updatedAt).getTime() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
+        const aDate = a.updatedAt
+          ? new Date(a.updatedAt).getTime()
+          : a.createdAt
+          ? new Date(a.createdAt).getTime()
+          : 0;
+        const bDate = b.updatedAt
+          ? new Date(b.updatedAt).getTime()
+          : b.createdAt
+          ? new Date(b.createdAt).getTime()
+          : 0;
         return bDate - aDate;
       } else if (sortOption === 'createdAt') {
         const aDate = a.createdAt ? new Date(a.createdAt).getTime() : 0;
@@ -65,8 +85,16 @@ export class TodoStore {
         return bDate - aDate;
       } else {
         // updatedAt (default)
-        const aDate = a.updatedAt ? new Date(a.updatedAt).getTime() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
-        const bDate = b.updatedAt ? new Date(b.updatedAt).getTime() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
+        const aDate = a.updatedAt
+          ? new Date(a.updatedAt).getTime()
+          : a.createdAt
+          ? new Date(a.createdAt).getTime()
+          : 0;
+        const bDate = b.updatedAt
+          ? new Date(b.updatedAt).getTime()
+          : b.createdAt
+          ? new Date(b.createdAt).getTime()
+          : 0;
         return bDate - aDate;
       }
     });

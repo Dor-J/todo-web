@@ -12,7 +12,7 @@ import {
   AfterViewChecked,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import type { Todo } from '../../../../todo';
+import type { Todo } from '../../../../services/todo.service';
 import { getValidationErrorMessage, noWhitespaceValidator } from '../validators';
 
 export interface TodoEditPayload {

@@ -5,8 +5,8 @@ import { signal, computed, type WritableSignal } from '@angular/core';
 import { of, throwError, type Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { vi } from 'vitest';
-import type { Todo } from '../../todo';
-import type { CreateTodoDto, UpdateTodoDto, TodoService } from '../../todo';
+import type { Todo } from '../../services/todo.service';
+import type { CreateTodoDto, UpdateTodoDto, TodoService } from '../../services/todo.service';
 import type { TodoFiltersState } from '../../models/filters';
 import { TodoStore } from '../../../store/todo.store';
 import { TodoFormService } from '../../services/todo-form.service';
@@ -117,9 +117,7 @@ export function createMockTodoStore(initialState?: {
   setToast: (toast: string | null) => void;
 } {
   const todosSignal = signal<Todo[]>(initialState?.todos ?? []);
-  const filtersSignal = signal<TodoFiltersState>(
-    initialState?.filters ?? createMockFilters()
-  );
+  const filtersSignal = signal<TodoFiltersState>(initialState?.filters ?? createMockFilters());
   const loadingSignal = signal<boolean>(initialState?.loading ?? false);
   const errorSignal = signal<string | null>(initialState?.error ?? null);
   const toastSignal = signal<string | null>(initialState?.toast ?? null);
@@ -142,7 +140,7 @@ export function createMockTodoStore(initialState?: {
         (isStarred === 'starred' && todo.starred === true) ||
         (isStarred === 'not-starred' && (todo.starred === false || todo.starred === undefined));
       const matchesPriority =
-        !priority || priority === 'all' || (todo.priority?.toUpperCase() === priority);
+        !priority || priority === 'all' || todo.priority?.toUpperCase() === priority;
       return matchesQuery && matchesStatus && matchesStarred && matchesPriority;
     });
 
@@ -162,13 +160,13 @@ export function createMockTodoStore(initialState?: {
         const aDate = a.updatedAt
           ? new Date(a.updatedAt).getTime()
           : a.createdAt
-            ? new Date(a.createdAt).getTime()
-            : 0;
+          ? new Date(a.createdAt).getTime()
+          : 0;
         const bDate = b.updatedAt
           ? new Date(b.updatedAt).getTime()
           : b.createdAt
-            ? new Date(b.createdAt).getTime()
-            : 0;
+          ? new Date(b.createdAt).getTime()
+          : 0;
         return bDate - aDate;
       } else if (sortOption === 'createdAt') {
         const aDate = a.createdAt ? new Date(a.createdAt).getTime() : 0;
@@ -178,13 +176,13 @@ export function createMockTodoStore(initialState?: {
         const aDate = a.updatedAt
           ? new Date(a.updatedAt).getTime()
           : a.createdAt
-            ? new Date(a.createdAt).getTime()
-            : 0;
+          ? new Date(a.createdAt).getTime()
+          : 0;
         const bDate = b.updatedAt
           ? new Date(b.updatedAt).getTime()
           : b.createdAt
-            ? new Date(b.createdAt).getTime()
-            : 0;
+          ? new Date(b.createdAt).getTime()
+          : 0;
         return bDate - aDate;
       }
     });
@@ -232,4 +230,3 @@ export function createMockTodoStore(initialState?: {
     setToast: (toast: string | null) => toastSignal.set(toast),
   };
 }
-

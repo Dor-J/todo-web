@@ -7,7 +7,7 @@ import { TodoStats } from '../todo/todo-stats/todo-stats';
 import { TodoForm } from '../todo/todo-form/todo-form';
 import { TodoList } from '../todo/todo-list/todo-list';
 import { TodoStore } from '../../../../store/todo.store';
-import type { Todo } from '../../../todo';
+import type { Todo } from '../../../services/todo.service';
 import type { TodoFiltersState, TodoSortOption } from '../../../models/filters';
 import { TodoEditModal, type TodoEditPayload } from '../todo/todo-edit-modal/todo-edit-modal';
 
@@ -40,7 +40,13 @@ export class TodoContainer implements OnInit {
     this.store.loadTodos();
   }
 
-  handleCreate(payload: { title: string; description?: string; isCompleted?: boolean; priority?: 'HIGH' | 'MEDIUM' | 'LOW'; starred?: boolean }): void {
+  handleCreate(payload: {
+    title: string;
+    description?: string;
+    isCompleted?: boolean;
+    priority?: 'HIGH' | 'MEDIUM' | 'LOW';
+    starred?: boolean;
+  }): void {
     this.store.createTodo(payload);
   }
 
