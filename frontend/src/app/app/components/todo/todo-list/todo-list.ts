@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TodoListItem } from '../todo-list-item/todo-list-item';
-import type { Todo } from '../../../../services/todo.service';
+import type { Todo } from '../../../../models/todo.model';
 import { CommonModule } from '@angular/common';
 import type { TodoFiltersState, TodoSortOption } from '../../../../models/filters';
 

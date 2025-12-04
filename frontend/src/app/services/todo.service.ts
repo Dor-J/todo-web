@@ -5,9 +5,6 @@ import type { CreateTodoDto } from '../models/todo-create.dto';
 import type { UpdateTodoDto } from '../models/todo-update.dto';
 import type { Todo } from '../models/todo.model';
 import { buildApiUrl } from '../utils/api-url';
-export type { Todo } from '../models/todo.model';
-export type { CreateTodoDto } from '../models/todo-create.dto';
-export type { UpdateTodoDto } from '../models/todo-update.dto';
 
 @Injectable({
   providedIn: 'root',

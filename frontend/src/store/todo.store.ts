@@ -1,10 +1,8 @@
 import { Injectable, computed, signal } from '@angular/core';
-import {
-  TodoService,
-  type CreateTodoDto,
-  type UpdateTodoDto,
-  type Todo,
-} from '../app/services/todo.service';
+import { TodoService } from '../app/services/todo.service';
+import {  type Todo} from '../app/models/todo.model';
+import {type CreateTodoDto} from '../app/models/todo-create.dto';
+import {type UpdateTodoDto} from '../app/models/todo-update.dto';
 import { TodoFiltersState } from '../app/models/filters';
 
 type PendingAction = 'load' | 'create' | 'update' | 'delete' | null;

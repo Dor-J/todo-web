@@ -7,7 +7,7 @@ import { TodoStats } from '../todo/todo-stats/todo-stats';
 import { TodoForm } from '../todo/todo-form/todo-form';
 import { TodoList } from '../todo/todo-list/todo-list';
 import { TodoStore } from '../../../../store/todo.store';
-import type { Todo } from '../../../services/todo.service';
+import type { Todo } from '../../../models/todo.model';
 import type { TodoFiltersState, TodoSortOption } from '../../../models/filters';
 import { TodoEditModal, type TodoEditPayload } from '../todo/todo-edit-modal/todo-edit-modal';
 
