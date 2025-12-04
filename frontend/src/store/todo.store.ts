@@ -4,6 +4,7 @@ import {  type Todo} from '../app/models/todo.model';
 import {type CreateTodoDto} from '../app/models/todo-create.dto';
 import {type UpdateTodoDto} from '../app/models/todo-update.dto';
 import { TodoFiltersState } from '../app/models/filters';
+import { UiStore } from './general.store';
 
 type PendingAction = 'load' | 'create' | 'update' | 'delete' | null;
 
@@ -12,9 +13,11 @@ type PendingAction = 'load' | 'create' | 'update' | 'delete' | null;
 })
 export class TodoStore {
   private readonly service: TodoService;
+  private readonly uiStore: UiStore;
 
-  constructor(service: TodoService) {
+  constructor(service: TodoService, uiStore: UiStore) {
     this.service = service;
+    this.uiStore = uiStore;
   }
 
   private readonly todos = signal<Todo[]>([]);
@@ -25,9 +28,7 @@ export class TodoStore {
     priority: 'all',
     sortBy: 'updatedAt',
   });
-  readonly loading = signal(false);
-  readonly error = signal<string | null>(null);
-  readonly toast = signal<string | null>(null);
+  
   readonly pendingAction = signal<PendingAction>(null);
 
   readonly filteredTodos = computed(() => {
@@ -106,12 +107,12 @@ export class TodoStore {
   });
 
   loadTodos(): void {
-    this.loading.set(true);
+    this.uiStore.setLoading(true);
     this.pendingAction.set('load');
     this.service.getTodos().subscribe({
       next: (todos) => {
         this.todos.set(todos);
-        this.error.set(null);
+        this.uiStore.setError(null);
       },
       error: (err) => {
         this.handleError(err);
@@ -125,8 +126,8 @@ export class TodoStore {
     this.service.addTodo({ ...payload, isCompleted: payload.isCompleted ?? false }).subscribe({
       next: (todo) => {
         this.todos.update((list) => [...list, todo]);
-        this.toast.set('Todo created');
-        this.error.set(null);
+        this.uiStore.setToast('Todo created');
+        this.uiStore.setError(null);
       },
       error: (err) => this.handleError(err),
       complete: () => this.finishAction(),
@@ -157,8 +158,8 @@ export class TodoStore {
     this.pendingAction.set('delete');
     this.service.deleteTodo(id).subscribe({
       next: () => {
-        this.toast.set('Todo deleted');
-        this.error.set(null);
+        this.uiStore.setToast('Todo deleted');
+        this.uiStore.setError(null);
       },
       error: (err) => {
         this.todos.set(previous);
@@ -170,14 +171,6 @@ export class TodoStore {
 
   setFilters(filters: TodoFiltersState): void {
     this.filters.set(filters);
-  }
-
-  clearToast(): void {
-    this.toast.set(null);
-  }
-
-  clearError(): void {
-    this.error.set(null);
   }
 
   private commitUpdate(id: string, updated: Todo): void {
@@ -196,8 +189,8 @@ export class TodoStore {
     this.service.updateTodo(id, dto).subscribe({
       next: (serverTodo) => {
         this.todos.set(this.todos().map((t) => (t.id === id ? serverTodo : t)));
-        this.toast.set('Todo updated');
-        this.error.set(null);
+        this.uiStore.setToast('Todo updated');
+        this.uiStore.setError(null);
       },
       error: (err) => {
         this.todos.set(previous);
@@ -209,12 +202,12 @@ export class TodoStore {
 
   private finishAction(): void {
     this.pendingAction.set(null);
-    this.loading.set(false);
+    this.uiStore.setLoading(false);
   }
 
   private handleError(err: unknown): void {
     const message = err instanceof Error ? err.message : 'Something went wrong';
-    this.error.set(message);
+    this.uiStore.setError(message);
     this.finishAction();
   }
 }
