@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import type { Todo } from '../../../../todo';
+import type { Todo } from '../../../../models/todo.model';
 
 @Component({
   selector: 'app-todo-list-item',

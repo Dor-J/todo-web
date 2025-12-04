@@ -1,26 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import type { Todo } from './models/todo';
-export type { Todo } from './models/todo';
-
-export interface CreateTodoDto {
-  title: string;
-  description?: string;
-  isCompleted?: boolean;
-  priority?: 'HIGH' | 'MEDIUM' | 'LOW';
-  starred?: boolean;
-}
-
-export interface UpdateTodoDto {
-  title?: string;
-  description?: string;
-  isCompleted?: boolean;
-  completedAt?: string | null;
-  updatedAt?: string | null;
-  priority?: 'HIGH' | 'MEDIUM' | 'LOW';
-  starred?: boolean;
-}
+import type { CreateTodoDto } from '../models/todo-create.dto';
+import type { UpdateTodoDto } from '../models/todo-update.dto';
+import type { Todo } from '../models/todo.model';
+import { buildApiUrl } from '../utils/api-url';
 
 @Injectable({
   providedIn: 'root',
@@ -33,12 +17,11 @@ export class TodoService {
     const baseUrl = import.meta.env.NG_APP_API_URL ?? 'http://localhost:5013';
     const endpoint = import.meta.env.NG_APP_TODO_ENDPOINT ?? '/todos';
 
-    const normalizedBase = baseUrl.replace(/\/+$/, '');
-    const normalizedEndpoint = endpoint.replace(/^\/?/, '/');
-
-    this.apiUrl = `${normalizedBase}${normalizedEndpoint}`;
+    // Normalization step
+    this.apiUrl = buildApiUrl(baseUrl, endpoint);
   }
 
+  // CRUD Methods
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.apiUrl);
   }
