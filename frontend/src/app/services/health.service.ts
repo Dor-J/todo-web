@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { buildApiUrl } from '../utils/api-url';
 import { Observable, interval, startWith, switchMap, catchError, map, of } from 'rxjs';
 
 export interface HealthStatus {
@@ -18,10 +19,7 @@ export class HealthService {
     const baseUrl = import.meta.env.NG_APP_API_URL ?? 'http://localhost:5013';
     const endpoint = import.meta.env.NG_APP_HEALTH_ENDPOINT ??'/api/health';
     
-    const normalizedBase = baseUrl.replace(/\/+$/, '');
-    const normalizedEndpoint = endpoint.replace(/^\/?/, '/');
-    
-    this.healthUrl = `${normalizedBase}${normalizedEndpoint}`;
+    this.healthUrl = buildApiUrl(baseUrl, endpoint);
   }
 
   /**

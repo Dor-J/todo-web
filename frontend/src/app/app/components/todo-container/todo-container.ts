@@ -7,6 +7,7 @@ import { TodoStats } from '../todo/todo-stats/todo-stats';
 import { TodoForm } from '../todo/todo-form/todo-form';
 import { TodoList } from '../todo/todo-list/todo-list';
 import { TodoStore } from '../../../../store/todo.store';
+import { UiStore } from '../../../../store/general.store';
 import type { Todo } from '../../../models/todo.model';
 import type { TodoFiltersState, TodoSortOption } from '../../../models/filters';
 import { TodoEditModal, type TodoEditPayload } from '../todo/todo-edit-modal/todo-edit-modal';
@@ -28,11 +29,12 @@ import { TodoEditModal, type TodoEditPayload } from '../todo/todo-edit-modal/tod
 })
 export class TodoContainer implements OnInit {
   private readonly store = inject(TodoStore);
+  private readonly uiStore = inject(UiStore);
   readonly filteredTodos = this.store.filteredTodos;
   readonly stats = this.store.stats;
-  readonly loading = this.store.loading;
-  readonly error = this.store.error;
-  readonly toast = this.store.toast;
+  readonly loading = this.uiStore.loading;
+  readonly error = this.uiStore.error;
+  readonly toast = this.uiStore.toast;
   readonly filters = this.store.filters;
   readonly editingTodo = signal<Todo | null>(null);
 
@@ -93,11 +95,11 @@ export class TodoContainer implements OnInit {
   }
 
   dismissToast(): void {
-    this.store.clearToast();
+    this.uiStore.clearToast();
   }
 
   dismissError(): void {
-    this.store.clearError();
+    this.uiStore.clearError();
   }
 
   handleToggleStarred(todo: Todo): void {
