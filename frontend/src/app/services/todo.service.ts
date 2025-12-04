@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import type { CreateTodoDto } from '../models/todo-create.dto';
 import type { UpdateTodoDto } from '../models/todo-update.dto';
 import type { Todo } from '../models/todo.model';
+import { buildApiUrl } from '../utils/api-url';
 export type { Todo } from '../models/todo.model';
 export type { CreateTodoDto } from '../models/todo-create.dto';
 export type { UpdateTodoDto } from '../models/todo-update.dto';
@@ -20,10 +21,7 @@ export class TodoService {
     const endpoint = import.meta.env.NG_APP_TODO_ENDPOINT ?? '/todos';
 
     // Normalization step
-    const normalizedBase = baseUrl.replace(/\/+$/, '');
-    const normalizedEndpoint = endpoint.replace(/^\/?/, '/');
-
-    this.apiUrl = `${normalizedBase}${normalizedEndpoint}`;
+    this.apiUrl = buildApiUrl(baseUrl, endpoint);
   }
 
   // CRUD Methods
