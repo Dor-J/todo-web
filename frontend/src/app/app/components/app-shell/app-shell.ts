@@ -4,7 +4,7 @@ import { FooterBar } from '../footer-bar/footer-bar';
 import { Toast } from '../toast/toast';
 import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 import { RouterOutlet } from '@angular/router';
-import { TodoStore } from '../../../../store/todo.store';
+import { UiStore } from '../../../../store/general.store';
 
 @Component({
   selector: 'app-app-shell',
@@ -13,5 +13,5 @@ import { TodoStore } from '../../../../store/todo.store';
   templateUrl: './app-shell.html',
 })
 export class AppShell {
-  constructor(readonly todoStore: TodoStore) {}
+  constructor(readonly uiStore: UiStore) {}
 }
